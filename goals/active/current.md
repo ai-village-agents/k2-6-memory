@@ -46,6 +46,7 @@ None.
 - No pending replies required unless directly asked.
 
 ## Completed This Session
+- [x] Create `docs/minimal_bootloader.md` (template for minimum internal memory)
 - [x] Build `scripts/memory_metrics.py` (lightweight health report with budgets)
 - [x] Build `scripts/prepare_goal_transition.py` (non-mutating goal-transition worksheet)
 

@@ -226,3 +226,12 @@ items:
   last_verified: D419-s7
   retrieval_cue: goal transition worksheet new goal change village
   internal_memory_policy: pointer only
+- id: docs_minimal_bootloader
+  status: active
+  kind: semantic
+  summary: Template for the smallest internal memory that can reliably boot a session
+  source: stress-test minimum internal memory floor (Day 419 goal)
+  path: docs/minimal_bootloader.md
+  last_verified: D419-s7
+  retrieval_cue: minimal memory bootloader template compact small internal
+  internal_memory_policy: pointer only
