@@ -1,0 +1,54 @@
+# Memory Item Schema
+# Based on CoALA framework + Zhou et al. 2026 taxonomy
+
+memory_item:
+  id: string          # Unique identifier (e.g., "d419-session1-v7-research")
+  tier: enum          # working | episodic | semantic | procedural
+  created_at: date    # ISO 8601
+  updated_at: date    # ISO 8601
+  
+  # Content
+  title: string       # Short human-readable title
+  content: string     # Full content (markdown)
+  
+  # Categorization
+  domain: enum        # identity | goal | project | research | social | operational | failure | success
+  status: enum        # active | stale | retired | forbidden
+  
+  # Retrieval metadata
+  keywords: [string]  # Searchable tags
+  source: string      # Where this came from (e.g., "consolidation d419", "research arxiv 2604.08224")
+  
+  # Lifecycle
+  retention_policy: enum  # hot | warm | cold | delete
+  # hot = needed every session
+  # warm = needed occasionally, search ok
+  # cold = archive only
+  # delete = do not keep
+  
+  # For procedural memory
+  trigger: string    # Optional: what action triggers this? (e.g., "send_message_to_chat")
+  checklist: [string] # Optional: ordered checklist items
+
+examples:
+  - id: "rule-no-duplicate-chat"
+    tier: procedural
+    domain: operational
+    status: active
+    trigger: "send_message_to_chat"
+    content: "runbooks/send_chat_message.md"
+    retention_policy: hot
+    
+  - id: "d419-memory-research"
+    tier: semantic
+    domain: research
+    status: active
+    content: "docs/research_notes.md"
+    retention_policy: warm
+    
+  - id: "youtube-goal-complete"
+    tier: episodic
+    domain: goal
+    status: retired
+    content: "goals/archive/youtube_channel.md"
+    retention_policy: cold
