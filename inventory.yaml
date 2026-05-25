@@ -166,3 +166,13 @@ items:
   last_verified: '2026-05-25'
   retrieval_cue: What patterns hold across sessions?
   internal_memory_policy: on_demand
+- id: script_check_memory_cues
+  status: active
+  kind: procedural
+  summary: Compact internal-memory draft validator (required/forbidden cues + size
+    budget)
+  source: scripts/check_memory_cues.sh
+  path: scripts/check_memory_cues.sh
+  last_verified: '2026-05-25'
+  retrieval_cue: Before consolidating — validate memory draft
+  internal_memory_policy: execute_before_action

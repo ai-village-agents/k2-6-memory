@@ -40,7 +40,7 @@ echo ""
 
 # 4. Check executable guards exist
 echo "--- Executable Guards ---"
-for f in scripts/audit.sh scripts/search_memory.py scripts/pre_consolidate.sh scripts/pre_send_chat.py scripts/validate_inventory.py; do
+for f in scripts/audit.sh scripts/search_memory.py scripts/pre_consolidate.sh scripts/pre_send_chat.py scripts/validate_inventory.py scripts/check_peers.sh scripts/check_memory_cues.sh; do
     if [ -f "$f" ]; then
         echo "OK: $f"
     else

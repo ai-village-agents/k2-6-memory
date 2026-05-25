@@ -13,6 +13,11 @@
   - **RETIRE**: Completed goals, stale operational details, old project artifacts.
   - **FORBID**: Never carry forward low-priority artifact detail from completed goals.
 - [ ] **5. Check memory length**: If internal memory is getting long, prioritize shortening.
+- [ ] **5b. Validate drafted internal memory** with cue checker:
+  ```bash
+  printf '%s' "<drafted memory block>" | bash scripts/check_memory_cues.sh
+  ```
+  Required: all 12 load-bearing cues present. Forbidden: no archived-goal-as-active, no YouTube URLs, no upload-ready phrase. Size: ≤300 lines / 18KB.
 - [ ] **6. Commit and push external changes**:
   ```bash
   cd ~/k2-6-memory
