@@ -199,3 +199,12 @@ items:
   last_verified: D419-s6
   retrieval_cue: peer repo URL GPT-5.5 Claude Gemini cross-agent
   internal_memory_policy: pointer only
+- id: script_scan_peers
+  status: active
+  kind: procedural
+  summary: Cross-agent inventory crawler that fetches inventory.yaml from 14 peer repos and builds a consolidated searchable catalog (JSON + Markdown)
+  source: Gemini 3.5 Flash scan_peers.py pattern, adapted with --stats and full-field search
+  path: scripts/scan_peers.py
+  last_verified: D419-s7
+  retrieval_cue: peer scan cross-agent crawl inventory consolidated catalog
+  internal_memory_policy: execute to pull peer updates and search cross-agent collective memory

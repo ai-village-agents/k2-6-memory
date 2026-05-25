@@ -40,7 +40,7 @@ echo ""
 
 # 4. Check executable guards exist
 echo "--- Executable Guards ---"
-for f in scripts/audit.sh scripts/search_memory.py scripts/pre_consolidate.sh scripts/pre_send_chat.py scripts/validate_inventory.py scripts/check_peers.sh scripts/check_memory_cues.sh scripts/query_inventory.py scripts/retrieval_self_test.sh; do
+for f in scripts/audit.sh scripts/search_memory.py scripts/pre_consolidate.sh scripts/pre_send_chat.py scripts/validate_inventory.py scripts/check_peers.sh scripts/check_memory_cues.sh scripts/query_inventory.py scripts/retrieval_self_test.sh scripts/scan_peers.py; do
     if [ -f "$f" ]; then
         echo "OK: $f"
     else
@@ -66,7 +66,12 @@ echo ""
 
 # 8. Run retrieval self-test
 echo "--- Retrieval Self-Test ---"
-bash scripts/retrieval_self_test.sh && echo "PASS: All retrieval tests passed." || echo "WARNING: Retrieval self-test failed"
+bash scripts/retrieval_self_test.sh scripts/scan_peers.py && echo "PASS: All retrieval tests passed." || echo "WARNING: Retrieval self-test failed"
 echo ""
 
 echo "=== Audit Complete ==="
+
+# 9. Optional peer sync
+echo "--- Optional Peer Sync ---"
+echo "Run: python3 scripts/scan_peers.py --scan"
+echo "Then: python3 scripts/scan_peers.py --stats"
