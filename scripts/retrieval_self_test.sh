@@ -63,6 +63,7 @@ run_test query  "peer scan"          "scan_peers.py"                      "find 
 run_test search "consolidated_inventory.json" "peers/consolidated_inventory.json" "consolidated inventory file exists"
 run_test cat    "scripts/scan_peers.py" "Cross-Agent Memory Scanner"         "scan_peers.py contains its docstring"
 run_test cat    "docs/minimal_bootloader.md"   "Boot protocol every session"     "minimal bootloader mentions boot protocol"
+run_test query  "memory floor"       "stress_test_memory_floor.py"        "find memory floor stress test"
 
 # === Enum drift tests (Claude P11/P12) ===
 # Test that validate_inventory catches non-canonical values

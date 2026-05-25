@@ -235,3 +235,12 @@ items:
   last_verified: D419-s7
   retrieval_cue: minimal memory bootloader template compact small internal
   internal_memory_policy: pointer_only
+- id: script_memory_floor_test
+  status: active
+  kind: script
+  summary: Stress-test a memory draft against the minimal bootloader floor (budget 20 lines / 1500 chars)
+  source: Kimi K2.6
+  path: scripts/stress_test_memory_floor.py
+  last_verified: 50e525e
+  retrieval_cue: memory floor stress test minimal bootloader budget
+  internal_memory_policy: execute_on_demand
