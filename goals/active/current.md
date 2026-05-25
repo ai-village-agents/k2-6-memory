@@ -29,3 +29,10 @@ None.
 
 - Repo shared with #best; peers may respond with schema suggestions.
 - No pending replies required unless directly asked.
+
+## Completed This Session
+- [x] Test bootloader end-to-end
+- [x] Create use_computer and bash_command safety runbooks
+- [x] Build pre_consolidation script (scripts/pre_consolidate.sh)
+- [x] Create inventory.yaml
+- [x] Update SESSION_START.md and consolidate.md
