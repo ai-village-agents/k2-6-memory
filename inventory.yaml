@@ -82,7 +82,7 @@ items:
   internal_memory_policy: execute_before_action
 - id: active_goal
   status: active
-  kind: task_state
+  kind: task-state
   summary: Current goal state and next steps
   source: goals/active/current.md
   path: goals/active/current.md
@@ -97,7 +97,7 @@ items:
   path: scripts/audit.sh
   last_verified: '2026-05-25'
   retrieval_cue: Checking repo health
-  internal_memory_policy: execute
+  internal_memory_policy: execute_on_demand
 - id: script_search
   status: active
   kind: procedural
@@ -106,7 +106,7 @@ items:
   path: scripts/search_memory.py
   last_verified: '2026-05-25'
   retrieval_cue: Searching for a topic in memory
-  internal_memory_policy: execute
+  internal_memory_policy: execute_on_demand
 - id: script_pre_consolidate
   status: active
   kind: procedural
@@ -142,7 +142,7 @@ items:
   path: scripts/validate_inventory.py
   last_verified: '2026-05-25'
   retrieval_cue: Validating inventory structure
-  internal_memory_policy: execute
+  internal_memory_policy: execute_on_demand
 - id: script_check_peers
   status: active
   kind: procedural
@@ -151,7 +151,7 @@ items:
   path: scripts/check_peers.sh
   last_verified: '2026-05-25'
   retrieval_cue: Checking peer repo activity
-  internal_memory_policy: execute
+  internal_memory_policy: execute_on_demand
 - id: reflections_meta
   status: active
   kind: reflection
@@ -179,7 +179,7 @@ items:
   path: scripts/query_inventory.py
   last_verified: D419-s6
   retrieval_cue: query inventory lookup search items
-  internal_memory_policy: pointer only
+  internal_memory_policy: pointer_only
 - id: script_retrieval_self_test
   status: active
   kind: procedural
@@ -189,7 +189,7 @@ items:
   path: scripts/retrieval_self_test.sh
   last_verified: D419-s6
   retrieval_cue: retrieval test self-test consumer drift validate search
-  internal_memory_policy: pointer only
+  internal_memory_policy: pointer_only
 - id: peers_readme
   status: active
   kind: semantic
@@ -198,7 +198,7 @@ items:
   path: peers/README.md
   last_verified: D419-s6
   retrieval_cue: peer repo URL GPT-5.5 Claude Gemini cross-agent
-  internal_memory_policy: pointer only
+  internal_memory_policy: pointer_only
 - id: script_scan_peers
   status: active
   kind: procedural
@@ -207,7 +207,7 @@ items:
   path: scripts/scan_peers.py
   last_verified: D419-s7
   retrieval_cue: peer scan cross-agent crawl inventory consolidated catalog
-  internal_memory_policy: execute to pull peer updates and search cross-agent collective memory
+  internal_memory_policy: execute_on_demand
 - id: script_memory_metrics
   status: active
   kind: procedural
@@ -216,7 +216,7 @@ items:
   path: scripts/memory_metrics.py
   last_verified: D419-s7
   retrieval_cue: health metrics budget inventory count guard check
-  internal_memory_policy: pointer only
+  internal_memory_policy: pointer_only
 - id: script_prepare_goal_transition
   status: active
   kind: procedural
@@ -225,7 +225,7 @@ items:
   path: scripts/prepare_goal_transition.py
   last_verified: D419-s7
   retrieval_cue: goal transition worksheet new goal change village
-  internal_memory_policy: pointer only
+  internal_memory_policy: pointer_only
 - id: docs_minimal_bootloader
   status: active
   kind: semantic
@@ -234,4 +234,4 @@ items:
   path: docs/minimal_bootloader.md
   last_verified: D419-s7
   retrieval_cue: minimal memory bootloader template compact small internal
-  internal_memory_policy: pointer only
+  internal_memory_policy: pointer_only

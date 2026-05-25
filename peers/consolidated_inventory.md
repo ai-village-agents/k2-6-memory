@@ -1,22 +1,22 @@
 # Cross-Agent Consolidated Inventory
 
-Generated: 2026-05-25T19:54:25.306046Z
+Generated: 2026-05-25T20:12:41.776145Z
 
 **Success**: 11/14 repos
-**Total items**: 183
+**Total items**: 195
 
 ## Per-Repo Counts
 
-- `claude-opus-4-7-memory`: 31 items
-- `claude-opus-memory`: 13 items
+- `claude-opus-4-7-memory`: 32 items
+- `claude-opus-memory`: 15 items
 - `deepseek-v3.2-memory-system`: 11 items
-- `gemini-3-5-flash-memory-vault`: 18 items
+- `gemini-3-5-flash-memory-vault`: 20 items
 - `gemini-3.1-pro-memory`: 12 items
 - `gpt-5-1-memory`: 11 items
-- `gpt-5-2-memory-improvement`: 16 items
+- `gpt-5-2-memory-improvement`: 19 items
 - `gpt-5-4-memory-kit`: 14 items
 - `gpt-5-5-memory-improvement`: 11 items
-- `k2-6-memory`: 22 items
+- `k2-6-memory`: 26 items
 - `opus-46-memory`: 24 items
 
 ## All Items
@@ -397,13 +397,21 @@ it contain / not contain?" → echo "<draft>" | bash scripts/check_memory_cues.s
 - **Retrieval cue**: Quick health snapshot of memory repo: bash scripts/memory_metrics.sh
 - **Internal memory policy**: pointer_only
 
+### peer-inventory-scanner (active) — claude-opus-4-7-memory
+- **Kind**: script
+- **Summary**: Crawl ai-village-agents org for peer memory repos with inventory.yaml; emit consolidated JSON + diversity report. Variant of Gemini scan_peers.py with dynamic discovery via gh repo list and per-peer summary.
+- **Path**: `scripts/scan_peer_inventories.sh`
+- **URL**: https://github.com/ai-village-agents/claude-opus-4-7-memory/blob/main/scripts/scan_peer_inventories.sh
+- **Retrieval cue**: cross-agent inventory peers crawler discovery
+- **Internal memory policy**: pointer_only
+
 ### identity_profile (active) — gemini-3-5-flash-memory-vault
 - **Kind**: semantic
 - **Summary**: Full profile, role, schedules, and emails of all 15 agents in the AI Village.
 - **Path**: `identity/profile.md`
 - **URL**: https://github.com/ai-village-agents/gemini-3-5-flash-memory-vault/blob/master/identity/profile.md
 - **Retrieval cue**: Find email addresses or active room assignments for any agent.
-- **Internal memory policy**: Always keep room assignments and emails hot in L1 internal memory.
+- **Internal memory policy**: keep_summary
 
 ### sota_memory_research (active) — gemini-3-5-flash-memory-vault
 - **Kind**: semantic
@@ -411,7 +419,7 @@ it contain / not contain?" → echo "<draft>" | bash scripts/check_memory_cues.s
 - **Path**: `principles/sota_research.md`
 - **URL**: https://github.com/ai-village-agents/gemini-3-5-flash-memory-vault/blob/master/principles/sota_research.md
 - **Retrieval cue**: Research state-of-the-art memory mechanisms or mathematical mappings.
-- **Internal memory policy**: Reference only on-demand; keep cold in L2.
+- **Internal memory policy**: pointer_only
 
 ### aligned_memory_schemas (active) — gemini-3-5-flash-memory-vault
 - **Kind**: semantic
@@ -419,7 +427,7 @@ it contain / not contain?" → echo "<draft>" | bash scripts/check_memory_cues.s
 - **Path**: `principles/schemas.md`
 - **URL**: https://github.com/ai-village-agents/gemini-3-5-flash-memory-vault/blob/master/principles/schemas.md
 - **Retrieval cue**: Verify folder alignment and file classification rules.
-- **Internal memory policy**: Strict compliance, verified on every consolidation call.
+- **Internal memory policy**: keep_pointer
 
 ### standard_operating_procedures (active) — gemini-3-5-flash-memory-vault
 - **Kind**: procedural
@@ -427,7 +435,7 @@ it contain / not contain?" → echo "<draft>" | bash scripts/check_memory_cues.s
 - **Path**: `runbooks/checklists.md`
 - **URL**: https://github.com/ai-village-agents/gemini-3-5-flash-memory-vault/blob/master/runbooks/checklists.md
 - **Retrieval cue**: Execute whenever initiating a tool call, chat send, or session consolidation.
-- **Internal memory policy**: Always reference procedurally on every relevant trigger.
+- **Internal memory policy**: keep_pointer
 
 ### historical_milestones_and_failures (active) — gemini-3-5-flash-memory-vault
 - **Kind**: reflection
@@ -435,7 +443,7 @@ it contain / not contain?" → echo "<draft>" | bash scripts/check_memory_cues.s
 - **Path**: `reflections/episodes.md`
 - **URL**: https://github.com/ai-village-agents/gemini-3-5-flash-memory-vault/blob/master/reflections/episodes.md
 - **Retrieval cue**: Analyze past errors, video results, or historical milestones.
-- **Internal memory policy**: Keep cold in L2; retain only minimal pointers in L1.
+- **Internal memory policy**: pointer_only
 
 ### active_goal_tracker (active) — gemini-3-5-flash-memory-vault
 - **Kind**: episodic
@@ -443,7 +451,7 @@ it contain / not contain?" → echo "<draft>" | bash scripts/check_memory_cues.s
 - **Path**: `goals/active.md`
 - **URL**: https://github.com/ai-village-agents/gemini-3-5-flash-memory-vault/blob/master/goals/active.md
 - **Retrieval cue**: Identify immediate active tasks, coordination gates, and next steps.
-- **Internal memory policy**: Always update before consolidation and load in L1 bootloader.
+- **Internal memory policy**: keep_summary
 
 ### capabilities_and_skills (active) — gemini-3-5-flash-memory-vault
 - **Kind**: semantic
@@ -451,7 +459,7 @@ it contain / not contain?" → echo "<draft>" | bash scripts/check_memory_cues.s
 - **Path**: `identity/skills.md`
 - **URL**: https://github.com/ai-village-agents/gemini-3-5-flash-memory-vault/blob/master/identity/skills.md
 - **Retrieval cue**: Check list of capabilities, mathematical or programmatic skills.
-- **Internal memory policy**: Reference only on-demand; keep cold in L2.
+- **Internal memory policy**: pointer_only
 
 ### chronological_goals_index (active) — gemini-3-5-flash-memory-vault
 - **Kind**: semantic
@@ -459,7 +467,7 @@ it contain / not contain?" → echo "<draft>" | bash scripts/check_memory_cues.s
 - **Path**: `goals/INDEX.md`
 - **URL**: https://github.com/ai-village-agents/gemini-3-5-flash-memory-vault/blob/master/goals/INDEX.md
 - **Retrieval cue**: Look up past village goals, chronological progress, or milestone histories.
-- **Internal memory policy**: Reference only on-demand; keep cold in L2.
+- **Internal memory policy**: pointer_only
 
 ### session_operations_log (active) — gemini-3-5-flash-memory-vault
 - **Kind**: episodic
@@ -467,7 +475,7 @@ it contain / not contain?" → echo "<draft>" | bash scripts/check_memory_cues.s
 - **Path**: `reflections/daily_log.md`
 - **URL**: https://github.com/ai-village-agents/gemini-3-5-flash-memory-vault/blob/master/reflections/daily_log.md
 - **Retrieval cue**: View detailed operations list or specific daily session tasks.
-- **Internal memory policy**: Reference only on-demand; keep cold in L2.
+- **Internal memory policy**: keep_summary
 
 ### peer_vault_registry (active) — gemini-3-5-flash-memory-vault
 - **Kind**: semantic
@@ -475,7 +483,7 @@ it contain / not contain?" → echo "<draft>" | bash scripts/check_memory_cues.s
 - **Path**: `peers/README.md`
 - **URL**: https://github.com/ai-village-agents/gemini-3-5-flash-memory-vault/blob/master/peers/README.md
 - **Retrieval cue**: Look up GPT-5.5, Claude 4.7, or Kimi 2.6 memory repo URLs.
-- **Internal memory policy**: Reference only on-demand; keep cold in L2.
+- **Internal memory policy**: pointer_only
 
 ### session_bootloader_script (active) — gemini-3-5-flash-memory-vault
 - **Kind**: procedural
@@ -483,7 +491,7 @@ it contain / not contain?" → echo "<draft>" | bash scripts/check_memory_cues.s
 - **Path**: `scripts/boot.py`
 - **URL**: https://github.com/ai-village-agents/gemini-3-5-flash-memory-vault/blob/master/scripts/boot.py
 - **Retrieval cue**: Use on startup to synchronize and validate the workspace.
-- **Internal memory policy**: Execute as first action of every session.
+- **Internal memory policy**: keep_pointer
 
 ### pre_send_chat_guard_script (active) — gemini-3-5-flash-memory-vault
 - **Kind**: procedural
@@ -491,7 +499,7 @@ it contain / not contain?" → echo "<draft>" | bash scripts/check_memory_cues.s
 - **Path**: `scripts/pre_send_chat.py`
 - **URL**: https://github.com/ai-village-agents/gemini-3-5-flash-memory-vault/blob/master/scripts/pre_send_chat.py
 - **Retrieval cue**: Run to programmatically validate any outgoing chat message.
-- **Internal memory policy**: Execute before every send_message_to_chat call.
+- **Internal memory policy**: keep_pointer
 
 ### pre_consolidation_guard_script (active) — gemini-3-5-flash-memory-vault
 - **Kind**: procedural
@@ -499,7 +507,7 @@ it contain / not contain?" → echo "<draft>" | bash scripts/check_memory_cues.s
 - **Path**: `scripts/pre_consolidate.py`
 - **URL**: https://github.com/ai-village-agents/gemini-3-5-flash-memory-vault/blob/master/scripts/pre_consolidate.py
 - **Retrieval cue**: Run to verify repository conformity before calling consolidate.
-- **Internal memory policy**: Execute before calling consolidate.
+- **Internal memory policy**: keep_pointer
 
 ### prepare_consolidation_script (active) — gemini-3-5-flash-memory-vault
 - **Kind**: procedural
@@ -507,7 +515,7 @@ it contain / not contain?" → echo "<draft>" | bash scripts/check_memory_cues.s
 - **Path**: `scripts/prepare_consolidation.py`
 - **URL**: https://github.com/ai-village-agents/gemini-3-5-flash-memory-vault/blob/master/scripts/prepare_consolidation.py
 - **Retrieval cue**: Use before calling consolidate to ensure session is logged and L1 draft is compiled.
-- **Internal memory policy**: Execute procedurally on every consolidation preparation trigger.
+- **Internal memory policy**: keep_pointer
 
 ### scan_peers_script (active) — gemini-3-5-flash-memory-vault
 - **Kind**: procedural
@@ -515,7 +523,7 @@ it contain / not contain?" → echo "<draft>" | bash scripts/check_memory_cues.s
 - **Path**: `scripts/scan_peers.py`
 - **URL**: https://github.com/ai-village-agents/gemini-3-5-flash-memory-vault/blob/master/scripts/scan_peers.py
 - **Retrieval cue**: Search or consolidate metadata inventories from peer agents.
-- **Internal memory policy**: Execute to pull peer updates and search cross-agent collective memory.
+- **Internal memory policy**: keep_pointer
 
 ### consolidated_peer_inventory (active) — gemini-3-5-flash-memory-vault
 - **Kind**: semantic
@@ -523,7 +531,7 @@ it contain / not contain?" → echo "<draft>" | bash scripts/check_memory_cues.s
 - **Path**: `peers/consolidated_inventory.json`
 - **URL**: https://github.com/ai-village-agents/gemini-3-5-flash-memory-vault/blob/master/peers/consolidated_inventory.json
 - **Retrieval cue**: Cross-reference or locate files and memory schemas across all village agents.
-- **Internal memory policy**: Read-only searchable catalog, updated via scan_peers.py.
+- **Internal memory policy**: pointer_only
 
 ### check_memory_cues_script (active) — gemini-3-5-flash-memory-vault
 - **Kind**: procedural
@@ -531,7 +539,7 @@ it contain / not contain?" → echo "<draft>" | bash scripts/check_memory_cues.s
 - **Path**: `scripts/check_memory_cues.py`
 - **URL**: https://github.com/ai-village-agents/gemini-3-5-flash-memory-vault/blob/master/scripts/check_memory_cues.py
 - **Retrieval cue**: Run to verify if a drafted L1 memory block or file complies with size and structural requirements.
-- **Internal memory policy**: Execute during consolidation pipeline via pre_consolidate.py.
+- **Internal memory policy**: keep_pointer
 
 ### retrieval_self_test_script (active) — gemini-3-5-flash-memory-vault
 - **Kind**: procedural
@@ -539,7 +547,23 @@ it contain / not contain?" → echo "<draft>" | bash scripts/check_memory_cues.s
 - **Path**: `scripts/retrieval_self_test.py`
 - **URL**: https://github.com/ai-village-agents/gemini-3-5-flash-memory-vault/blob/master/scripts/retrieval_self_test.py
 - **Retrieval cue**: Run to verify that memory engine is searching and retrieving correctly.
-- **Internal memory policy**: Execute to test retrieval correctness.
+- **Internal memory policy**: keep_pointer
+
+### prepare_goal_transition_script (active) — gemini-3-5-flash-memory-vault
+- **Kind**: procedural
+- **Summary**: Goal transition automation script to cleanly archive current goal and load a new village goal.
+- **Path**: `scripts/prepare_goal_transition.py`
+- **URL**: https://github.com/ai-village-agents/gemini-3-5-flash-memory-vault/blob/master/scripts/prepare_goal_transition.py
+- **Retrieval cue**: Run to automate transition and updates to INDEX.md and active.md.
+- **Internal memory policy**: keep_pointer
+
+### memory_metrics_script (active) — gemini-3-5-flash-memory-vault
+- **Kind**: procedural
+- **Summary**: Lightweight memory metrics tool verifying files, metrics, guards presence, and policies.
+- **Path**: `scripts/memory_metrics.py`
+- **URL**: https://github.com/ai-village-agents/gemini-3-5-flash-memory-vault/blob/master/scripts/memory_metrics.py
+- **Retrieval cue**: Run to show metrics for items, status, kind, policies, and git counts.
+- **Internal memory policy**: keep_pointer
 
 ### gpt52.active (active) — gpt-5-2-memory-improvement
 - **Kind**: semantic
@@ -605,6 +629,14 @@ it contain / not contain?" → echo "<draft>" | bash scripts/check_memory_cues.s
 - **Retrieval cue**: run before any non-trivial outbound post
 - **Internal memory policy**: 
 
+### gpt52.pre_goal_transition_gate (active) — gpt-5-2-memory-improvement
+- **Kind**: gate
+- **Summary**: Gate to validate repo state/log anchors before changing day/goal.
+- **Path**: ``
+- **URL**: https://github.com/ai-village-agents/gpt-5-2-memory-improvement/blob/main/
+- **Retrieval cue**: python scripts/pre_goal_transition.py
+- **Internal memory policy**: 
+
 ### gpt52.internal_schema (stable) — gpt-5-2-memory-improvement
 - **Kind**: semantic
 - **Summary**: 5-bucket internal memory schema and definitions.
@@ -667,6 +699,22 @@ it contain / not contain?" → echo "<draft>" | bash scripts/check_memory_cues.s
 - **Path**: ``
 - **URL**: https://github.com/ai-village-agents/gpt-5-2-memory-improvement/blob/main/
 - **Retrieval cue**: when repeatedly checking Day N+1 yields nothing, use this runbook
+- **Internal memory policy**: 
+
+### gpt52.events_block_dedupe_runbook (active) — gpt-5-2-memory-improvement
+- **Kind**: runbook
+- **Summary**: Checklist to prevent double-posts by deduping against the user-provided visible events block before sending chat messages.
+- **Path**: ``
+- **URL**: https://github.com/ai-village-agents/gpt-5-2-memory-improvement/blob/main/
+- **Retrieval cue**: If an events list is shown and I plan to send chat, open this runbook first.
+- **Internal memory policy**: 
+
+### gpt52.goal_transition_runbook (active) — gpt-5-2-memory-improvement
+- **Kind**: runbook
+- **Summary**: Day N+1 pivot checklist (verify events/search_history, gate, update anchor, wrap session).
+- **Path**: ``
+- **URL**: https://github.com/ai-village-agents/gpt-5-2-memory-improvement/blob/main/
+- **Retrieval cue**: when new goal announced
 - **Internal memory policy**: 
 
 ### principles (active) — opus-46-memory
@@ -1076,6 +1124,22 @@ it contain / not contain?" → echo "<draft>" | bash scripts/check_memory_cues.s
 - **URL**: https://github.com/ai-village-agents/claude-opus-memory/blob/main/
 - **Retrieval cue**: Am I ready to consolidate?
 - **Internal memory policy**: command-in-stays
+
+### pre_send_chat_gate (unknown) — claude-opus-memory
+- **Kind**: gate
+- **Summary**: Duplicate prevention gate before sending chat messages (supports --json)
+- **Path**: ``
+- **URL**: https://github.com/ai-village-agents/claude-opus-memory/blob/main/
+- **Retrieval cue**: 
+- **Internal memory policy**: 
+
+### pre_goal_transition_gate (unknown) — claude-opus-memory
+- **Kind**: gate
+- **Summary**: Validates readiness before transitioning to a new goal (8 checks, supports --json)
+- **Path**: ``
+- **URL**: https://github.com/ai-village-agents/claude-opus-memory/blob/main/
+- **Retrieval cue**: 
+- **Internal memory policy**: 
 
 ### runbook-pre-consolidate (active) — gemini-3.1-pro-memory
 - **Kind**: gate
@@ -1523,5 +1587,37 @@ it contain / not contain?" → echo "<draft>" | bash scripts/check_memory_cues.s
 - **Path**: `peers/README.md`
 - **URL**: https://github.com/ai-village-agents/k2-6-memory/blob/main/peers/README.md
 - **Retrieval cue**: peer repo URL GPT-5.5 Claude Gemini cross-agent
+- **Internal memory policy**: pointer only
+
+### script_scan_peers (active) — k2-6-memory
+- **Kind**: procedural
+- **Summary**: Cross-agent inventory crawler that fetches inventory.yaml from 14 peer repos and builds a consolidated searchable catalog (JSON + Markdown)
+- **Path**: `scripts/scan_peers.py`
+- **URL**: https://github.com/ai-village-agents/k2-6-memory/blob/main/scripts/scan_peers.py
+- **Retrieval cue**: peer scan cross-agent crawl inventory consolidated catalog
+- **Internal memory policy**: execute to pull peer updates and search cross-agent collective memory
+
+### script_memory_metrics (active) — k2-6-memory
+- **Kind**: procedural
+- **Summary**: Lightweight health report printing inventory counts, guard presence, retrieval status, and budget checks
+- **Path**: `scripts/memory_metrics.py`
+- **URL**: https://github.com/ai-village-agents/k2-6-memory/blob/main/scripts/memory_metrics.py
+- **Retrieval cue**: health metrics budget inventory count guard check
+- **Internal memory policy**: pointer only
+
+### script_prepare_goal_transition (active) — k2-6-memory
+- **Kind**: procedural
+- **Summary**: Non-mutating worksheet for safely transitioning to a new village goal
+- **Path**: `scripts/prepare_goal_transition.py`
+- **URL**: https://github.com/ai-village-agents/k2-6-memory/blob/main/scripts/prepare_goal_transition.py
+- **Retrieval cue**: goal transition worksheet new goal change village
+- **Internal memory policy**: pointer only
+
+### docs_minimal_bootloader (active) — k2-6-memory
+- **Kind**: semantic
+- **Summary**: Template for the smallest internal memory that can reliably boot a session
+- **Path**: `docs/minimal_bootloader.md`
+- **URL**: https://github.com/ai-village-agents/k2-6-memory/blob/main/docs/minimal_bootloader.md
+- **Retrieval cue**: minimal memory bootloader template compact small internal
 - **Internal memory policy**: pointer only
 

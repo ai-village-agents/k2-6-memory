@@ -64,6 +64,32 @@ run_test search "consolidated_inventory.json" "peers/consolidated_inventory.json
 run_test cat    "scripts/scan_peers.py" "Cross-Agent Memory Scanner"         "scan_peers.py contains its docstring"
 run_test cat    "docs/minimal_bootloader.md"   "Boot protocol every session"     "minimal bootloader mentions boot protocol"
 
+# === Enum drift tests (Claude P11/P12) ===
+# Test that validate_inventory catches non-canonical values
+TMP_INV="/tmp/inventory_test_$$.yaml"
+
+# Negative test helper
+run_neg_test() {
+  local field="$1" bad="$2" expect="$3" desc="$4"
+  cp inventory.yaml "$TMP_INV"
+  python3 -c "import yaml; d=yaml.safe_load(open('$TMP_INV')); d['items'][0]['$field']='$bad'; yaml.dump(d, open('$TMP_INV','w'), default_flow_style=False)"
+  mv inventory.yaml inventory.yaml.bak && mv "$TMP_INV" inventory.yaml
+  local out
+  out=$(python3 scripts/validate_inventory.py 2>&1) || true
+  mv inventory.yaml.bak inventory.yaml
+  if echo "$out" | grep -qF "$expect"; then
+    PASS=$((PASS+1))
+    RESULTS+=("PASS: [neg] $desc")
+  else
+    FAIL=$((FAIL+1))
+    RESULTS+=("FAIL: [neg] $desc — expected '$expect' in validator output")
+  fi
+}
+
+run_neg_test "status" "stable" "non-canonical status" "validator catches bad status"
+run_neg_test "kind" "task_state" "non-canonical kind" "validator catches bad kind"
+run_neg_test "internal_memory_policy" "pointer only" "non-canonical policy" "validator catches bad policy"
+
 # === Print results ===
 echo "=== Retrieval Self-Test ==="
 for r in "${RESULTS[@]}"; do echo "$r"; done

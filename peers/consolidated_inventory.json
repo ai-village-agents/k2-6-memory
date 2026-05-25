@@ -41,7 +41,7 @@
     "kind": "procedural",
     "summary": "Run scripts/prepare_consolidation.py before platform consolidate and make an explicit do-not-carry-forward decision.",
     "source_repo": "gpt-5-5-memory-improvement",
-    "last_verified": "628e878 Add inventory lookup helper",
+    "last_verified": "6f7989e Preserve docs navigation cue in consolidation",
     "retrieval_cue": "Before any platform consolidate call.",
     "internal_memory_policy": "keep_pointer",
     "path": "scripts/prepare_consolidation.py",
@@ -504,6 +504,18 @@
     "url": "https://github.com/ai-village-agents/claude-opus-4-7-memory/blob/main/scripts/memory_metrics.sh"
   },
   {
+    "id": "peer-inventory-scanner",
+    "status": "active",
+    "kind": "script",
+    "summary": "Crawl ai-village-agents org for peer memory repos with inventory.yaml; emit consolidated JSON + diversity report. Variant of Gemini scan_peers.py with dynamic discovery via gh repo list and per-peer summary.",
+    "source_repo": "claude-opus-4-7-memory",
+    "last_verified": "D419 s14",
+    "retrieval_cue": "cross-agent inventory peers crawler discovery",
+    "internal_memory_policy": "pointer_only",
+    "path": "scripts/scan_peer_inventories.sh",
+    "url": "https://github.com/ai-village-agents/claude-opus-4-7-memory/blob/main/scripts/scan_peer_inventories.sh"
+  },
+  {
     "id": "identity_profile",
     "status": "active",
     "kind": "semantic",
@@ -511,7 +523,7 @@
     "source_repo": "gemini-3-5-flash-memory-vault",
     "last_verified": "Day 419",
     "retrieval_cue": "Find email addresses or active room assignments for any agent.",
-    "internal_memory_policy": "Always keep room assignments and emails hot in L1 internal memory.",
+    "internal_memory_policy": "keep_summary",
     "path": "identity/profile.md",
     "url": "https://github.com/ai-village-agents/gemini-3-5-flash-memory-vault/blob/master/identity/profile.md"
   },
@@ -523,7 +535,7 @@
     "source_repo": "gemini-3-5-flash-memory-vault",
     "last_verified": "Day 419",
     "retrieval_cue": "Research state-of-the-art memory mechanisms or mathematical mappings.",
-    "internal_memory_policy": "Reference only on-demand; keep cold in L2.",
+    "internal_memory_policy": "pointer_only",
     "path": "principles/sota_research.md",
     "url": "https://github.com/ai-village-agents/gemini-3-5-flash-memory-vault/blob/master/principles/sota_research.md"
   },
@@ -535,7 +547,7 @@
     "source_repo": "gemini-3-5-flash-memory-vault",
     "last_verified": "Day 419",
     "retrieval_cue": "Verify folder alignment and file classification rules.",
-    "internal_memory_policy": "Strict compliance, verified on every consolidation call.",
+    "internal_memory_policy": "keep_pointer",
     "path": "principles/schemas.md",
     "url": "https://github.com/ai-village-agents/gemini-3-5-flash-memory-vault/blob/master/principles/schemas.md"
   },
@@ -547,7 +559,7 @@
     "source_repo": "gemini-3-5-flash-memory-vault",
     "last_verified": "Day 419",
     "retrieval_cue": "Execute whenever initiating a tool call, chat send, or session consolidation.",
-    "internal_memory_policy": "Always reference procedurally on every relevant trigger.",
+    "internal_memory_policy": "keep_pointer",
     "path": "runbooks/checklists.md",
     "url": "https://github.com/ai-village-agents/gemini-3-5-flash-memory-vault/blob/master/runbooks/checklists.md"
   },
@@ -559,7 +571,7 @@
     "source_repo": "gemini-3-5-flash-memory-vault",
     "last_verified": "Day 419",
     "retrieval_cue": "Analyze past errors, video results, or historical milestones.",
-    "internal_memory_policy": "Keep cold in L2; retain only minimal pointers in L1.",
+    "internal_memory_policy": "pointer_only",
     "path": "reflections/episodes.md",
     "url": "https://github.com/ai-village-agents/gemini-3-5-flash-memory-vault/blob/master/reflections/episodes.md"
   },
@@ -571,7 +583,7 @@
     "source_repo": "gemini-3-5-flash-memory-vault",
     "last_verified": "Day 419",
     "retrieval_cue": "Identify immediate active tasks, coordination gates, and next steps.",
-    "internal_memory_policy": "Always update before consolidation and load in L1 bootloader.",
+    "internal_memory_policy": "keep_summary",
     "path": "goals/active.md",
     "url": "https://github.com/ai-village-agents/gemini-3-5-flash-memory-vault/blob/master/goals/active.md"
   },
@@ -583,7 +595,7 @@
     "source_repo": "gemini-3-5-flash-memory-vault",
     "last_verified": "Day 419",
     "retrieval_cue": "Check list of capabilities, mathematical or programmatic skills.",
-    "internal_memory_policy": "Reference only on-demand; keep cold in L2.",
+    "internal_memory_policy": "pointer_only",
     "path": "identity/skills.md",
     "url": "https://github.com/ai-village-agents/gemini-3-5-flash-memory-vault/blob/master/identity/skills.md"
   },
@@ -595,7 +607,7 @@
     "source_repo": "gemini-3-5-flash-memory-vault",
     "last_verified": "Day 419",
     "retrieval_cue": "Look up past village goals, chronological progress, or milestone histories.",
-    "internal_memory_policy": "Reference only on-demand; keep cold in L2.",
+    "internal_memory_policy": "pointer_only",
     "path": "goals/INDEX.md",
     "url": "https://github.com/ai-village-agents/gemini-3-5-flash-memory-vault/blob/master/goals/INDEX.md"
   },
@@ -607,7 +619,7 @@
     "source_repo": "gemini-3-5-flash-memory-vault",
     "last_verified": "Day 419",
     "retrieval_cue": "View detailed operations list or specific daily session tasks.",
-    "internal_memory_policy": "Reference only on-demand; keep cold in L2.",
+    "internal_memory_policy": "keep_summary",
     "path": "reflections/daily_log.md",
     "url": "https://github.com/ai-village-agents/gemini-3-5-flash-memory-vault/blob/master/reflections/daily_log.md"
   },
@@ -619,7 +631,7 @@
     "source_repo": "gemini-3-5-flash-memory-vault",
     "last_verified": "Day 419",
     "retrieval_cue": "Look up GPT-5.5, Claude 4.7, or Kimi 2.6 memory repo URLs.",
-    "internal_memory_policy": "Reference only on-demand; keep cold in L2.",
+    "internal_memory_policy": "pointer_only",
     "path": "peers/README.md",
     "url": "https://github.com/ai-village-agents/gemini-3-5-flash-memory-vault/blob/master/peers/README.md"
   },
@@ -631,7 +643,7 @@
     "source_repo": "gemini-3-5-flash-memory-vault",
     "last_verified": "Day 419",
     "retrieval_cue": "Use on startup to synchronize and validate the workspace.",
-    "internal_memory_policy": "Execute as first action of every session.",
+    "internal_memory_policy": "keep_pointer",
     "path": "scripts/boot.py",
     "url": "https://github.com/ai-village-agents/gemini-3-5-flash-memory-vault/blob/master/scripts/boot.py"
   },
@@ -643,7 +655,7 @@
     "source_repo": "gemini-3-5-flash-memory-vault",
     "last_verified": "Day 419",
     "retrieval_cue": "Run to programmatically validate any outgoing chat message.",
-    "internal_memory_policy": "Execute before every send_message_to_chat call.",
+    "internal_memory_policy": "keep_pointer",
     "path": "scripts/pre_send_chat.py",
     "url": "https://github.com/ai-village-agents/gemini-3-5-flash-memory-vault/blob/master/scripts/pre_send_chat.py"
   },
@@ -655,7 +667,7 @@
     "source_repo": "gemini-3-5-flash-memory-vault",
     "last_verified": "Day 419",
     "retrieval_cue": "Run to verify repository conformity before calling consolidate.",
-    "internal_memory_policy": "Execute before calling consolidate.",
+    "internal_memory_policy": "keep_pointer",
     "path": "scripts/pre_consolidate.py",
     "url": "https://github.com/ai-village-agents/gemini-3-5-flash-memory-vault/blob/master/scripts/pre_consolidate.py"
   },
@@ -667,7 +679,7 @@
     "source_repo": "gemini-3-5-flash-memory-vault",
     "last_verified": "Day 419",
     "retrieval_cue": "Use before calling consolidate to ensure session is logged and L1 draft is compiled.",
-    "internal_memory_policy": "Execute procedurally on every consolidation preparation trigger.",
+    "internal_memory_policy": "keep_pointer",
     "path": "scripts/prepare_consolidation.py",
     "url": "https://github.com/ai-village-agents/gemini-3-5-flash-memory-vault/blob/master/scripts/prepare_consolidation.py"
   },
@@ -679,7 +691,7 @@
     "source_repo": "gemini-3-5-flash-memory-vault",
     "last_verified": "Day 419",
     "retrieval_cue": "Search or consolidate metadata inventories from peer agents.",
-    "internal_memory_policy": "Execute to pull peer updates and search cross-agent collective memory.",
+    "internal_memory_policy": "keep_pointer",
     "path": "scripts/scan_peers.py",
     "url": "https://github.com/ai-village-agents/gemini-3-5-flash-memory-vault/blob/master/scripts/scan_peers.py"
   },
@@ -691,7 +703,7 @@
     "source_repo": "gemini-3-5-flash-memory-vault",
     "last_verified": "Day 419",
     "retrieval_cue": "Cross-reference or locate files and memory schemas across all village agents.",
-    "internal_memory_policy": "Read-only searchable catalog, updated via scan_peers.py.",
+    "internal_memory_policy": "pointer_only",
     "path": "peers/consolidated_inventory.json",
     "url": "https://github.com/ai-village-agents/gemini-3-5-flash-memory-vault/blob/master/peers/consolidated_inventory.json"
   },
@@ -703,7 +715,7 @@
     "source_repo": "gemini-3-5-flash-memory-vault",
     "last_verified": "Day 419",
     "retrieval_cue": "Run to verify if a drafted L1 memory block or file complies with size and structural requirements.",
-    "internal_memory_policy": "Execute during consolidation pipeline via pre_consolidate.py.",
+    "internal_memory_policy": "keep_pointer",
     "path": "scripts/check_memory_cues.py",
     "url": "https://github.com/ai-village-agents/gemini-3-5-flash-memory-vault/blob/master/scripts/check_memory_cues.py"
   },
@@ -715,9 +727,33 @@
     "source_repo": "gemini-3-5-flash-memory-vault",
     "last_verified": "Day 419",
     "retrieval_cue": "Run to verify that memory engine is searching and retrieving correctly.",
-    "internal_memory_policy": "Execute to test retrieval correctness.",
+    "internal_memory_policy": "keep_pointer",
     "path": "scripts/retrieval_self_test.py",
     "url": "https://github.com/ai-village-agents/gemini-3-5-flash-memory-vault/blob/master/scripts/retrieval_self_test.py"
+  },
+  {
+    "id": "prepare_goal_transition_script",
+    "status": "active",
+    "kind": "procedural",
+    "summary": "Goal transition automation script to cleanly archive current goal and load a new village goal.",
+    "source_repo": "gemini-3-5-flash-memory-vault",
+    "last_verified": "Day 419",
+    "retrieval_cue": "Run to automate transition and updates to INDEX.md and active.md.",
+    "internal_memory_policy": "keep_pointer",
+    "path": "scripts/prepare_goal_transition.py",
+    "url": "https://github.com/ai-village-agents/gemini-3-5-flash-memory-vault/blob/master/scripts/prepare_goal_transition.py"
+  },
+  {
+    "id": "memory_metrics_script",
+    "status": "active",
+    "kind": "procedural",
+    "summary": "Lightweight memory metrics tool verifying files, metrics, guards presence, and policies.",
+    "source_repo": "gemini-3-5-flash-memory-vault",
+    "last_verified": "Day 419",
+    "retrieval_cue": "Run to show metrics for items, status, kind, policies, and git counts.",
+    "internal_memory_policy": "keep_pointer",
+    "path": "scripts/memory_metrics.py",
+    "url": "https://github.com/ai-village-agents/gemini-3-5-flash-memory-vault/blob/master/scripts/memory_metrics.py"
   },
   {
     "id": "gpt52.active",
@@ -816,6 +852,18 @@
     "url": "https://github.com/ai-village-agents/gpt-5-2-memory-improvement/blob/main/"
   },
   {
+    "id": "gpt52.pre_goal_transition_gate",
+    "status": "active",
+    "kind": "gate",
+    "summary": "Gate to validate repo state/log anchors before changing day/goal.",
+    "source_repo": "gpt-5-2-memory-improvement",
+    "last_verified": "2026-05-25",
+    "retrieval_cue": "python scripts/pre_goal_transition.py",
+    "internal_memory_policy": "",
+    "path": "",
+    "url": "https://github.com/ai-village-agents/gpt-5-2-memory-improvement/blob/main/"
+  },
+  {
     "id": "gpt52.internal_schema",
     "status": "stable",
     "kind": "semantic",
@@ -907,6 +955,30 @@
     "source_repo": "gpt-5-2-memory-improvement",
     "last_verified": "2026-05-25",
     "retrieval_cue": "when repeatedly checking Day N+1 yields nothing, use this runbook",
+    "internal_memory_policy": "",
+    "path": "",
+    "url": "https://github.com/ai-village-agents/gpt-5-2-memory-improvement/blob/main/"
+  },
+  {
+    "id": "gpt52.events_block_dedupe_runbook",
+    "status": "active",
+    "kind": "runbook",
+    "summary": "Checklist to prevent double-posts by deduping against the user-provided visible events block before sending chat messages.",
+    "source_repo": "gpt-5-2-memory-improvement",
+    "last_verified": "2026-05-25",
+    "retrieval_cue": "If an events list is shown and I plan to send chat, open this runbook first.",
+    "internal_memory_policy": "",
+    "path": "",
+    "url": "https://github.com/ai-village-agents/gpt-5-2-memory-improvement/blob/main/"
+  },
+  {
+    "id": "gpt52.goal_transition_runbook",
+    "status": "active",
+    "kind": "runbook",
+    "summary": "Day N+1 pivot checklist (verify events/search_history, gate, update anchor, wrap session).",
+    "source_repo": "gpt-5-2-memory-improvement",
+    "last_verified": "2026-05-25",
+    "retrieval_cue": "when new goal announced",
     "internal_memory_policy": "",
     "path": "",
     "url": "https://github.com/ai-village-agents/gpt-5-2-memory-improvement/blob/main/"
@@ -1520,6 +1592,30 @@
     "last_verified": "2026-05-25",
     "retrieval_cue": "Am I ready to consolidate?",
     "internal_memory_policy": "command-in-stays",
+    "path": "",
+    "url": "https://github.com/ai-village-agents/claude-opus-memory/blob/main/"
+  },
+  {
+    "id": "pre_send_chat_gate",
+    "status": "unknown",
+    "kind": "gate",
+    "summary": "Duplicate prevention gate before sending chat messages (supports --json)",
+    "source_repo": "claude-opus-memory",
+    "last_verified": "2026-05-25",
+    "retrieval_cue": "",
+    "internal_memory_policy": "",
+    "path": "",
+    "url": "https://github.com/ai-village-agents/claude-opus-memory/blob/main/"
+  },
+  {
+    "id": "pre_goal_transition_gate",
+    "status": "unknown",
+    "kind": "gate",
+    "summary": "Validates readiness before transitioning to a new goal (8 checks, supports --json)",
+    "source_repo": "claude-opus-memory",
+    "last_verified": "2026-05-25",
+    "retrieval_cue": "",
+    "internal_memory_policy": "",
     "path": "",
     "url": "https://github.com/ai-village-agents/claude-opus-memory/blob/main/"
   },
@@ -2194,5 +2290,53 @@
     "internal_memory_policy": "pointer only",
     "path": "peers/README.md",
     "url": "https://github.com/ai-village-agents/k2-6-memory/blob/main/peers/README.md"
+  },
+  {
+    "id": "script_scan_peers",
+    "status": "active",
+    "kind": "procedural",
+    "summary": "Cross-agent inventory crawler that fetches inventory.yaml from 14 peer repos and builds a consolidated searchable catalog (JSON + Markdown)",
+    "source_repo": "k2-6-memory",
+    "last_verified": "D419-s7",
+    "retrieval_cue": "peer scan cross-agent crawl inventory consolidated catalog",
+    "internal_memory_policy": "execute to pull peer updates and search cross-agent collective memory",
+    "path": "scripts/scan_peers.py",
+    "url": "https://github.com/ai-village-agents/k2-6-memory/blob/main/scripts/scan_peers.py"
+  },
+  {
+    "id": "script_memory_metrics",
+    "status": "active",
+    "kind": "procedural",
+    "summary": "Lightweight health report printing inventory counts, guard presence, retrieval status, and budget checks",
+    "source_repo": "k2-6-memory",
+    "last_verified": "D419-s7",
+    "retrieval_cue": "health metrics budget inventory count guard check",
+    "internal_memory_policy": "pointer only",
+    "path": "scripts/memory_metrics.py",
+    "url": "https://github.com/ai-village-agents/k2-6-memory/blob/main/scripts/memory_metrics.py"
+  },
+  {
+    "id": "script_prepare_goal_transition",
+    "status": "active",
+    "kind": "procedural",
+    "summary": "Non-mutating worksheet for safely transitioning to a new village goal",
+    "source_repo": "k2-6-memory",
+    "last_verified": "D419-s7",
+    "retrieval_cue": "goal transition worksheet new goal change village",
+    "internal_memory_policy": "pointer only",
+    "path": "scripts/prepare_goal_transition.py",
+    "url": "https://github.com/ai-village-agents/k2-6-memory/blob/main/scripts/prepare_goal_transition.py"
+  },
+  {
+    "id": "docs_minimal_bootloader",
+    "status": "active",
+    "kind": "semantic",
+    "summary": "Template for the smallest internal memory that can reliably boot a session",
+    "source_repo": "k2-6-memory",
+    "last_verified": "D419-s7",
+    "retrieval_cue": "minimal memory bootloader template compact small internal",
+    "internal_memory_policy": "pointer only",
+    "path": "docs/minimal_bootloader.md",
+    "url": "https://github.com/ai-village-agents/k2-6-memory/blob/main/docs/minimal_bootloader.md"
   }
 ]
