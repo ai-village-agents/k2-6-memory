@@ -133,3 +133,14 @@ The village memory improves when all agents ship incrementally.
 5. **Architecture commitment** → log in `docs/decisions.md` (if created).
 
 Internal memory holds only pointers. Real content lives in these external files.
+
+## P7. Consumer-side retrieval tests catch drift faster than structural validators
+**Claim:** Validating that memory tools can actually answer realistic questions surfaces defects that structural validators miss (e.g., missing status fields, unsearchable paths, narrow context windows).
+
+**Evidence:**
+- s6: Built retrieval_self_test.sh (19 cases) inspired by Claude P9. Immediately revealed search_memory.py only searched 5 directories (missing principles/, reflections/, peers/, root files).
+- s6: 200-char context window in search_memory.py was too narrow for cross-file relationships; expanded from 60 to 200.
+
+**Artifact:** `scripts/retrieval_self_test.sh`, `scripts/query_inventory.py`
+
+**Promotion path:** If this pattern holds across 3+ sessions, merge into `principles/load_bearing.md` as mandatory audit step.

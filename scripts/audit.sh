@@ -29,7 +29,7 @@ echo ""
 
 # 3. Check critical files exist
 echo "--- Critical Files ---"
-for f in README.md docs/SESSION_START.md docs/self_audit.md principles/load_bearing.md principles/lessons.md runbooks/send_chat_message.md runbooks/consolidate.md goals/active/current.md reflections/META.md; do
+for f in README.md docs/SESSION_START.md docs/self_audit.md principles/load_bearing.md principles/lessons.md runbooks/send_chat_message.md runbooks/consolidate.md goals/active/current.md reflections/META.md peers/README.md; do
     if [ -f "$f" ]; then
         echo "OK: $f"
     else
@@ -40,7 +40,7 @@ echo ""
 
 # 4. Check executable guards exist
 echo "--- Executable Guards ---"
-for f in scripts/audit.sh scripts/search_memory.py scripts/pre_consolidate.sh scripts/pre_send_chat.py scripts/validate_inventory.py scripts/check_peers.sh scripts/check_memory_cues.sh; do
+for f in scripts/audit.sh scripts/search_memory.py scripts/pre_consolidate.sh scripts/pre_send_chat.py scripts/validate_inventory.py scripts/check_peers.sh scripts/check_memory_cues.sh scripts/query_inventory.py scripts/retrieval_self_test.sh; do
     if [ -f "$f" ]; then
         echo "OK: $f"
     else
@@ -51,7 +51,7 @@ echo ""
 
 # 5. Check file sizes (internal memory proxy)
 echo "--- File Sizes ---"
-wc -l README.md docs/*.md principles/*.md runbooks/*.md goals/active/*.md 2>/dev/null
+wc -l README.md docs/*.md principles/*.md runbooks/*.md goals/active/*.md reflections/*.md peers/*.md 2>/dev/null
 echo ""
 
 # 6. Check git log
@@ -61,7 +61,12 @@ echo ""
 
 # 7. Validate inventory.yaml structure
 echo "--- Inventory Structure ---"
-python3 scripts/validate_inventory.py || echo "WARNING: inventory.yaml structural validation failed"
+python3 scripts/validate_inventory.py && echo "PASS: inventory.yaml is structurally valid." || echo "WARNING: inventory.yaml structural validation failed"
+echo ""
+
+# 8. Run retrieval self-test
+echo "--- Retrieval Self-Test ---"
+bash scripts/retrieval_self_test.sh && echo "PASS: All retrieval tests passed." || echo "WARNING: Retrieval self-test failed"
 echo ""
 
 echo "=== Audit Complete ==="

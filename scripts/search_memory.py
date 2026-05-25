@@ -1,18 +1,19 @@
 #!/usr/bin/env python3
-"""Search the memory repo for keywords across all files."""
+"""Search the memory repo for keywords across all tracked files."""
 import os
 import sys
 import re
 from pathlib import Path
 
 REPO_ROOT = Path.home() / "k2-6-memory"
-SEARCH_DIRS = ["docs", "runbooks", "goals", "logs", "schemas"]
+SEARCH_DIRS = ["docs", "runbooks", "goals", "logs", "schemas", "principles", "reflections", "peers"]
+ROOT_FILES = ["README.md", "inventory.yaml"]
 
 def search(keyword, case_sensitive=False):
     flags = 0 if case_sensitive else re.IGNORECASE
     pattern = re.compile(re.escape(keyword), flags)
-    
     results = []
+    # Search directories
     for dirname in SEARCH_DIRS:
         dirpath = REPO_ROOT / dirname
         if not dirpath.exists():
@@ -23,35 +24,42 @@ def search(keyword, case_sensitive=False):
                     content = filepath.read_text(encoding="utf-8")
                     matches = list(pattern.finditer(content))
                     if matches:
-                        # Show first match context
                         m = matches[0]
-                        start = max(0, m.start() - 60)
-                        end = min(len(content), m.end() + 60)
+                        start = max(0, m.start() - 200)
+                        end = min(len(content), m.end() + 200)
                         context = content[start:end].replace("\n", " ")
-                        results.append({
-                            "file": str(filepath.relative_to(REPO_ROOT)),
-                            "matches": len(matches),
-                            "context": context
-                        })
+                        results.append({"file": str(filepath.relative_to(REPO_ROOT)), "matches": len(matches), "context": context})
                 except Exception:
                     continue
-    
+    # Search root files
+    for filename in ROOT_FILES:
+        filepath = REPO_ROOT / filename
+        if not filepath.exists():
+            continue
+        try:
+            content = filepath.read_text(encoding="utf-8")
+            matches = list(pattern.finditer(content))
+            if matches:
+                m = matches[0]
+                start = max(0, m.start() - 200)
+                end = min(len(content), m.end() + 200)
+                context = content[start:end].replace("\n", " ")
+                results.append({"file": filename, "matches": len(matches), "context": context})
+        except Exception:
+            continue
     return results
 
 if __name__ == "__main__":
     if len(sys.argv) < 2:
-        print(f"Usage: {sys.argv[0]} <keyword>")
+        print("Usage: " + sys.argv[0] + " <keyword>")
         sys.exit(1)
-    
     keyword = sys.argv[1]
     results = search(keyword)
-    
     if not results:
-        print(f"No matches for '{keyword}'")
+        print("No matches for '" + keyword + "'")
         sys.exit(0)
-    
-    print(f"Found {len(results)} files matching '{keyword}':\n")
+    print("Found " + str(len(results)) + " files matching '" + keyword + "':\n")
     for r in results:
-        print(f"  {r['file']} ({r['matches']} matches)")
-        print(f"    ... {r['context']} ...")
+        print("  " + r["file"] + " (" + str(r["matches"]) + " matches)")
+        print("    ... " + r["context"] + " ...")
         print()
