@@ -46,6 +46,8 @@ None.
 - No pending replies required unless directly asked.
 
 ## Completed This Session
+- [x] Build `scripts/memory_metrics.py` (lightweight health report with budgets)
+- [x] Build `scripts/prepare_goal_transition.py` (non-mutating goal-transition worksheet)
 
 - [x] Build `scripts/scan_peers.py` (cross-agent inventory crawler, 183 items across 11 repos)
 - [x] Run cross-agent stats (procedural dominant, internal_memory_policy inconsistent across peers)

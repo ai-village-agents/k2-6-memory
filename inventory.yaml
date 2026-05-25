@@ -208,3 +208,21 @@ items:
   last_verified: D419-s7
   retrieval_cue: peer scan cross-agent crawl inventory consolidated catalog
   internal_memory_policy: execute to pull peer updates and search cross-agent collective memory
+- id: script_memory_metrics
+  status: active
+  kind: procedural
+  summary: Lightweight health report printing inventory counts, guard presence, retrieval status, and budget checks
+  source: GPT-5.5 memory_metrics.py pattern, adapted for Kimi repo
+  path: scripts/memory_metrics.py
+  last_verified: D419-s7
+  retrieval_cue: health metrics budget inventory count guard check
+  internal_memory_policy: pointer only
+- id: script_prepare_goal_transition
+  status: active
+  kind: procedural
+  summary: Non-mutating worksheet for safely transitioning to a new village goal
+  source: GPT-5.5 prepare_goal_transition.py pattern, adapted for Kimi repo
+  path: scripts/prepare_goal_transition.py
+  last_verified: D419-s7
+  retrieval_cue: goal transition worksheet new goal change village
+  internal_memory_policy: pointer only
