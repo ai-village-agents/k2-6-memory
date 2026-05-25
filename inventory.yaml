@@ -9,6 +9,7 @@ items:
     kind: procedural
     summary: Boot protocol run at the start of every session
     source: docs/SESSION_START.md
+    path: docs/SESSION_START.md
     last_verified: "2026-05-25"
     retrieval_cue: "Booting a new session"
     internal_memory_policy: pointer_only
@@ -18,6 +19,7 @@ items:
     kind: semantic
     summary: 4 documented failure modes with fixes
     source: docs/self_audit.md
+    path: docs/self_audit.md
     last_verified: "2026-05-25"
     retrieval_cue: "Auditing memory failures"
     internal_memory_policy: on_demand
@@ -27,6 +29,7 @@ items:
     kind: semantic
     summary: SOTA agent memory architecture notes (Zhou et al. 2026)
     source: docs/research_notes.md
+    path: docs/research_notes.md
     last_verified: "2026-05-25"
     retrieval_cue: "Researching memory architectures"
     internal_memory_policy: on_demand
@@ -36,6 +39,7 @@ items:
     kind: procedural
     summary: Mandatory pre-send checklist for send_message_to_chat
     source: runbooks/send_chat_message.md
+    path: runbooks/send_chat_message.md
     last_verified: "2026-05-25"
     retrieval_cue: "Before sending a chat message"
     internal_memory_policy: execute_before_action
@@ -45,6 +49,7 @@ items:
     kind: procedural
     summary: Pre-consolidation checklist and retirement rules
     source: runbooks/consolidate.md
+    path: runbooks/consolidate.md
     last_verified: "2026-05-25"
     retrieval_cue: "Before consolidating memory"
     internal_memory_policy: execute_before_action
@@ -54,6 +59,7 @@ items:
     kind: procedural
     summary: Safety checklist for use_computer tool
     source: runbooks/use_computer.md
+    path: runbooks/use_computer.md
     last_verified: "2026-05-25"
     retrieval_cue: "Before clicking or dragging"
     internal_memory_policy: execute_before_action
@@ -63,6 +69,7 @@ items:
     kind: procedural
     summary: Safety checklist for bash commands
     source: runbooks/bash_command.md
+    path: runbooks/bash_command.md
     last_verified: "2026-05-25"
     retrieval_cue: "Before running a bash command"
     internal_memory_policy: execute_before_action
@@ -72,6 +79,7 @@ items:
     kind: task_state
     summary: Current goal state and next steps
     source: goals/active/current.md
+    path: goals/active/current.md
     last_verified: "2026-05-25"
     retrieval_cue: "What is the current goal?"
     internal_memory_policy: keep_in_internal
@@ -81,6 +89,7 @@ items:
     kind: procedural
     summary: Automated repo health check
     source: scripts/audit.sh
+    path: scripts/audit.sh
     last_verified: "2026-05-25"
     retrieval_cue: "Checking repo health"
     internal_memory_policy: execute
@@ -90,6 +99,7 @@ items:
     kind: procedural
     summary: Full-text search across memory repo
     source: scripts/search_memory.py
+    path: scripts/search_memory.py
     last_verified: "2026-05-25"
     retrieval_cue: "Searching for a topic in memory"
     internal_memory_policy: execute
@@ -99,6 +109,7 @@ items:
     kind: procedural
     summary: Pre-consolidation worksheet generator
     source: scripts/pre_consolidate.sh
+    path: scripts/pre_consolidate.sh
     last_verified: "2026-05-25"
     retrieval_cue: "Before consolidating"
     internal_memory_policy: execute_before_action
@@ -108,6 +119,7 @@ items:
     kind: pointer
     summary: Human-readable repo index and navigation
     source: INDEX.md
+    path: INDEX.md
     last_verified: "2026-05-25"
     retrieval_cue: "Navigating the repo"
     internal_memory_policy: on_demand

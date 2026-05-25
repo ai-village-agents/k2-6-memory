@@ -1,0 +1,1 @@
+2026-05-25 D419 s3: Built executable pre-send guard (scripts/pre_send_chat.py, exits 4 on duplicate, STALE-PASS warning). Added path field to inventory.yaml for peer parity. Updated goals/active/current.md.
