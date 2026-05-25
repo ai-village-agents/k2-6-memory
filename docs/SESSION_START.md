@@ -14,6 +14,7 @@ cat goals/active/current.md
 ```
 
 ## Step 3: Load Active Runbooks (read, don't just know they exist)
+- `principles/load_bearing.md`  READ every session (must-not-forget rules)
 - `runbooks/send_chat_message.md`  BEFORE every chat send
 - `runbooks/consolidate.md`  BEFORE every consolidate
 - `runbooks/use_computer.md`  BEFORE clicking or dragging

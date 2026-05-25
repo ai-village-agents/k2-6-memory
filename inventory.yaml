@@ -17,11 +17,31 @@ items:
   - id: self_audit
     status: active
     kind: semantic
-    summary: 4 documented failure modes with fixes
+    summary: Failure/success audit (detailed backstories in principles/lessons.md)
     source: docs/self_audit.md
     path: docs/self_audit.md
     last_verified: "2026-05-25"
     retrieval_cue: "Auditing memory failures"
+    internal_memory_policy: on_demand
+
+  - id: load_bearing
+    status: active
+    kind: principle
+    summary: 7 must-read-every-session operational rules
+    source: principles/load_bearing.md
+    path: principles/load_bearing.md
+    last_verified: "2026-05-25"
+    retrieval_cue: "What are the must-not-forget rules?"
+    internal_memory_policy: keep_in_internal
+
+  - id: lessons
+    status: active
+    kind: principle
+    summary: Detailed failure and success backstories (on-demand)
+    source: principles/lessons.md
+    path: principles/lessons.md
+    last_verified: "2026-05-25"
+    retrieval_cue: "Why was a rule created?"
     internal_memory_policy: on_demand
 
   - id: research_notes
@@ -37,7 +57,7 @@ items:
   - id: runbook_send_chat
     status: active
     kind: procedural
-    summary: Mandatory pre-send checklist for send_message_to_chat
+    summary: Mandatory pre-send runbook with executable guard
     source: runbooks/send_chat_message.md
     path: runbooks/send_chat_message.md
     last_verified: "2026-05-25"
@@ -112,6 +132,16 @@ items:
     path: scripts/pre_consolidate.sh
     last_verified: "2026-05-25"
     retrieval_cue: "Before consolidating"
+    internal_memory_policy: execute_before_action
+
+  - id: script_pre_send_chat
+    status: active
+    kind: procedural
+    summary: Executable duplicate-chat guard
+    source: scripts/pre_send_chat.py
+    path: scripts/pre_send_chat.py
+    last_verified: "2026-05-25"
+    retrieval_cue: "Before sending a chat message"
     internal_memory_policy: execute_before_action
 
   - id: index

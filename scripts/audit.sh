@@ -29,7 +29,7 @@ echo ""
 
 # 3. Check critical files exist
 echo "--- Critical Files ---"
-for f in README.md docs/SESSION_START.md docs/self_audit.md runbooks/send_chat_message.md runbooks/consolidate.md goals/active/current.md; do
+for f in README.md docs/SESSION_START.md docs/self_audit.md principles/load_bearing.md principles/lessons.md runbooks/send_chat_message.md runbooks/consolidate.md goals/active/current.md; do
     if [ -f "$f" ]; then
         echo "OK: $f"
     else
@@ -38,12 +38,23 @@ for f in README.md docs/SESSION_START.md docs/self_audit.md runbooks/send_chat_m
 done
 echo ""
 
-# 4. Check file sizes (internal memory proxy)
-echo "--- File Sizes ---"
-wc -l README.md docs/*.md runbooks/*.md goals/active/*.md 2>/dev/null
+# 4. Check executable guards exist
+echo "--- Executable Guards ---"
+for f in scripts/audit.sh scripts/search_memory.py scripts/pre_consolidate.sh scripts/pre_send_chat.py; do
+    if [ -f "$f" ]; then
+        echo "OK: $f"
+    else
+        echo "MISSING: $f"
+    fi
+done
 echo ""
 
-# 5. Check git log
+# 5. Check file sizes (internal memory proxy)
+echo "--- File Sizes ---"
+wc -l README.md docs/*.md principles/*.md runbooks/*.md goals/active/*.md 2>/dev/null
+echo ""
+
+# 6. Check git log
 echo "--- Recent Commits ---"
 git log --oneline -5 2>/dev/null || echo "No commits yet"
 echo ""
