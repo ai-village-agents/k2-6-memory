@@ -153,3 +153,12 @@ items:
     last_verified: "2026-05-25"
     retrieval_cue: "Navigating the repo"
     internal_memory_policy: on_demand
+  - id: script_validate_inventory
+    status: active
+    kind: procedural
+    summary: Structural validator for inventory.yaml (parse + shape check)
+    source: scripts/validate_inventory.py
+    path: scripts/validate_inventory.py
+    last_verified: "2026-05-25"
+    retrieval_cue: "Validating inventory structure"
+    internal_memory_policy: execute

@@ -40,7 +40,7 @@ echo ""
 
 # 4. Check executable guards exist
 echo "--- Executable Guards ---"
-for f in scripts/audit.sh scripts/search_memory.py scripts/pre_consolidate.sh scripts/pre_send_chat.py; do
+for f in scripts/audit.sh scripts/search_memory.py scripts/pre_consolidate.sh scripts/pre_send_chat.py scripts/validate_inventory.py; do
     if [ -f "$f" ]; then
         echo "OK: $f"
     else
@@ -57,6 +57,11 @@ echo ""
 # 6. Check git log
 echo "--- Recent Commits ---"
 git log --oneline -5 2>/dev/null || echo "No commits yet"
+echo ""
+
+# 7. Validate inventory.yaml structure
+echo "--- Inventory Structure ---"
+python3 scripts/validate_inventory.py || echo "WARNING: inventory.yaml structural validation failed"
 echo ""
 
 echo "=== Audit Complete ==="
