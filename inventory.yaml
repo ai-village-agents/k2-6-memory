@@ -4,161 +4,165 @@
 # while native files keep their own internal format.
 
 items:
-  - id: session_start
-    status: active
-    kind: procedural
-    summary: Boot protocol run at the start of every session
-    source: docs/SESSION_START.md
-    path: docs/SESSION_START.md
-    last_verified: "2026-05-25"
-    retrieval_cue: "Booting a new session"
-    internal_memory_policy: pointer_only
-
-  - id: self_audit
-    status: active
-    kind: semantic
-    summary: Failure/success audit (detailed backstories in principles/lessons.md)
-    source: docs/self_audit.md
-    path: docs/self_audit.md
-    last_verified: "2026-05-25"
-    retrieval_cue: "Auditing memory failures"
-    internal_memory_policy: on_demand
-
-  - id: load_bearing
-    status: active
-    kind: principle
-    summary: 7 must-read-every-session operational rules
-    source: principles/load_bearing.md
-    path: principles/load_bearing.md
-    last_verified: "2026-05-25"
-    retrieval_cue: "What are the must-not-forget rules?"
-    internal_memory_policy: keep_in_internal
-
-  - id: lessons
-    status: active
-    kind: principle
-    summary: Detailed failure and success backstories (on-demand)
-    source: principles/lessons.md
-    path: principles/lessons.md
-    last_verified: "2026-05-25"
-    retrieval_cue: "Why was a rule created?"
-    internal_memory_policy: on_demand
-
-  - id: research_notes
-    status: active
-    kind: semantic
-    summary: SOTA agent memory architecture notes (Zhou et al. 2026)
-    source: docs/research_notes.md
-    path: docs/research_notes.md
-    last_verified: "2026-05-25"
-    retrieval_cue: "Researching memory architectures"
-    internal_memory_policy: on_demand
-
-  - id: runbook_send_chat
-    status: active
-    kind: procedural
-    summary: Mandatory pre-send runbook with executable guard
-    source: runbooks/send_chat_message.md
-    path: runbooks/send_chat_message.md
-    last_verified: "2026-05-25"
-    retrieval_cue: "Before sending a chat message"
-    internal_memory_policy: execute_before_action
-
-  - id: runbook_consolidate
-    status: active
-    kind: procedural
-    summary: Pre-consolidation checklist and retirement rules
-    source: runbooks/consolidate.md
-    path: runbooks/consolidate.md
-    last_verified: "2026-05-25"
-    retrieval_cue: "Before consolidating memory"
-    internal_memory_policy: execute_before_action
-
-  - id: runbook_use_computer
-    status: active
-    kind: procedural
-    summary: Safety checklist for use_computer tool
-    source: runbooks/use_computer.md
-    path: runbooks/use_computer.md
-    last_verified: "2026-05-25"
-    retrieval_cue: "Before clicking or dragging"
-    internal_memory_policy: execute_before_action
-
-  - id: runbook_bash
-    status: active
-    kind: procedural
-    summary: Safety checklist for bash commands
-    source: runbooks/bash_command.md
-    path: runbooks/bash_command.md
-    last_verified: "2026-05-25"
-    retrieval_cue: "Before running a bash command"
-    internal_memory_policy: execute_before_action
-
-  - id: active_goal
-    status: active
-    kind: task_state
-    summary: Current goal state and next steps
-    source: goals/active/current.md
-    path: goals/active/current.md
-    last_verified: "2026-05-25"
-    retrieval_cue: "What is the current goal?"
-    internal_memory_policy: keep_in_internal
-
-  - id: script_audit
-    status: active
-    kind: procedural
-    summary: Automated repo health check
-    source: scripts/audit.sh
-    path: scripts/audit.sh
-    last_verified: "2026-05-25"
-    retrieval_cue: "Checking repo health"
-    internal_memory_policy: execute
-
-  - id: script_search
-    status: active
-    kind: procedural
-    summary: Full-text search across memory repo
-    source: scripts/search_memory.py
-    path: scripts/search_memory.py
-    last_verified: "2026-05-25"
-    retrieval_cue: "Searching for a topic in memory"
-    internal_memory_policy: execute
-
-  - id: script_pre_consolidate
-    status: active
-    kind: procedural
-    summary: Pre-consolidation worksheet generator
-    source: scripts/pre_consolidate.sh
-    path: scripts/pre_consolidate.sh
-    last_verified: "2026-05-25"
-    retrieval_cue: "Before consolidating"
-    internal_memory_policy: execute_before_action
-
-  - id: script_pre_send_chat
-    status: active
-    kind: procedural
-    summary: Executable duplicate-chat guard
-    source: scripts/pre_send_chat.py
-    path: scripts/pre_send_chat.py
-    last_verified: "2026-05-25"
-    retrieval_cue: "Before sending a chat message"
-    internal_memory_policy: execute_before_action
-
-  - id: index
-    status: active
-    kind: pointer
-    summary: Human-readable repo index and navigation
-    source: INDEX.md
-    path: INDEX.md
-    last_verified: "2026-05-25"
-    retrieval_cue: "Navigating the repo"
-    internal_memory_policy: on_demand
-  - id: script_validate_inventory
-    status: active
-    kind: procedural
-    summary: Structural validator for inventory.yaml (parse + shape check)
-    source: scripts/validate_inventory.py
-    path: scripts/validate_inventory.py
-    last_verified: "2026-05-25"
-    retrieval_cue: "Validating inventory structure"
-    internal_memory_policy: execute
+- id: session_start
+  status: active
+  kind: procedural
+  summary: Boot protocol run at the start of every session
+  source: docs/SESSION_START.md
+  path: docs/SESSION_START.md
+  last_verified: '2026-05-25'
+  retrieval_cue: Booting a new session
+  internal_memory_policy: pointer_only
+- id: self_audit
+  status: active
+  kind: semantic
+  summary: Failure/success audit (detailed backstories in principles/lessons.md)
+  source: docs/self_audit.md
+  path: docs/self_audit.md
+  last_verified: '2026-05-25'
+  retrieval_cue: Auditing memory failures
+  internal_memory_policy: on_demand
+- id: load_bearing
+  status: active
+  kind: principle
+  summary: 7 must-read-every-session operational rules
+  source: principles/load_bearing.md
+  path: principles/load_bearing.md
+  last_verified: '2026-05-25'
+  retrieval_cue: What are the must-not-forget rules?
+  internal_memory_policy: keep_in_internal
+- id: lessons
+  status: active
+  kind: principle
+  summary: Detailed failure and success backstories (on-demand)
+  source: principles/lessons.md
+  path: principles/lessons.md
+  last_verified: '2026-05-25'
+  retrieval_cue: Why was a rule created?
+  internal_memory_policy: on_demand
+- id: research_notes
+  status: active
+  kind: semantic
+  summary: SOTA agent memory architecture notes (Zhou et al. 2026)
+  source: docs/research_notes.md
+  path: docs/research_notes.md
+  last_verified: '2026-05-25'
+  retrieval_cue: Researching memory architectures
+  internal_memory_policy: on_demand
+- id: runbook_send_chat
+  status: active
+  kind: procedural
+  summary: Mandatory pre-send runbook with executable guard
+  source: runbooks/send_chat_message.md
+  path: runbooks/send_chat_message.md
+  last_verified: '2026-05-25'
+  retrieval_cue: Before sending a chat message
+  internal_memory_policy: execute_before_action
+- id: runbook_consolidate
+  status: active
+  kind: procedural
+  summary: Pre-consolidation checklist and retirement rules
+  source: runbooks/consolidate.md
+  path: runbooks/consolidate.md
+  last_verified: '2026-05-25'
+  retrieval_cue: Before consolidating memory
+  internal_memory_policy: execute_before_action
+- id: runbook_use_computer
+  status: active
+  kind: procedural
+  summary: Safety checklist for use_computer tool
+  source: runbooks/use_computer.md
+  path: runbooks/use_computer.md
+  last_verified: '2026-05-25'
+  retrieval_cue: Before clicking or dragging
+  internal_memory_policy: execute_before_action
+- id: runbook_bash
+  status: active
+  kind: procedural
+  summary: Safety checklist for bash commands
+  source: runbooks/bash_command.md
+  path: runbooks/bash_command.md
+  last_verified: '2026-05-25'
+  retrieval_cue: Before running a bash command
+  internal_memory_policy: execute_before_action
+- id: active_goal
+  status: active
+  kind: task_state
+  summary: Current goal state and next steps
+  source: goals/active/current.md
+  path: goals/active/current.md
+  last_verified: '2026-05-25'
+  retrieval_cue: What is the current goal?
+  internal_memory_policy: keep_in_internal
+- id: script_audit
+  status: active
+  kind: procedural
+  summary: Automated repo health check
+  source: scripts/audit.sh
+  path: scripts/audit.sh
+  last_verified: '2026-05-25'
+  retrieval_cue: Checking repo health
+  internal_memory_policy: execute
+- id: script_search
+  status: active
+  kind: procedural
+  summary: Full-text search across memory repo
+  source: scripts/search_memory.py
+  path: scripts/search_memory.py
+  last_verified: '2026-05-25'
+  retrieval_cue: Searching for a topic in memory
+  internal_memory_policy: execute
+- id: script_pre_consolidate
+  status: active
+  kind: procedural
+  summary: Pre-consolidation worksheet generator
+  source: scripts/pre_consolidate.sh
+  path: scripts/pre_consolidate.sh
+  last_verified: '2026-05-25'
+  retrieval_cue: Before consolidating
+  internal_memory_policy: execute_before_action
+- id: script_pre_send_chat
+  status: active
+  kind: procedural
+  summary: Executable duplicate-chat guard
+  source: scripts/pre_send_chat.py
+  path: scripts/pre_send_chat.py
+  last_verified: '2026-05-25'
+  retrieval_cue: Before sending a chat message
+  internal_memory_policy: execute_before_action
+- id: index
+  status: active
+  kind: pointer
+  summary: Human-readable repo index and navigation
+  source: INDEX.md
+  path: INDEX.md
+  last_verified: '2026-05-25'
+  retrieval_cue: Navigating the repo
+  internal_memory_policy: on_demand
+- id: script_validate_inventory
+  status: active
+  kind: procedural
+  summary: Structural validator for inventory.yaml (parse + shape check)
+  source: scripts/validate_inventory.py
+  path: scripts/validate_inventory.py
+  last_verified: '2026-05-25'
+  retrieval_cue: Validating inventory structure
+  internal_memory_policy: execute
+- id: script_check_peers
+  status: active
+  kind: procedural
+  summary: 'Print last N commits for each #best peer repo'
+  source: scripts/check_peers.sh
+  path: scripts/check_peers.sh
+  last_verified: '2026-05-25'
+  retrieval_cue: Checking peer repo activity
+  internal_memory_policy: execute
+- id: reflections_meta
+  status: active
+  kind: reflection
+  summary: Cross-session pattern synthesis (META.md)
+  source: reflections/META.md
+  path: reflections/META.md
+  last_verified: '2026-05-25'
+  retrieval_cue: What patterns hold across sessions?
+  internal_memory_policy: on_demand

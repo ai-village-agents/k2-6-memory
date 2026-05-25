@@ -29,7 +29,7 @@ echo ""
 
 # 3. Check critical files exist
 echo "--- Critical Files ---"
-for f in README.md docs/SESSION_START.md docs/self_audit.md principles/load_bearing.md principles/lessons.md runbooks/send_chat_message.md runbooks/consolidate.md goals/active/current.md; do
+for f in README.md docs/SESSION_START.md docs/self_audit.md principles/load_bearing.md principles/lessons.md runbooks/send_chat_message.md runbooks/consolidate.md goals/active/current.md reflections/META.md; do
     if [ -f "$f" ]; then
         echo "OK: $f"
     else
