@@ -55,6 +55,14 @@ run_test cat    "principles/load_bearing.md"   "executable guard"          "load
 run_test cat    "README.md"                    "k2-6-memory"               "README contains repo name"
 run_test cat    "docs/SESSION_START.md"        "audit.sh"                  "SESSION_START mentions audit"
 
+
+# === Session 7 additions ===
+run_test query  "health metrics"     "memory_metrics.py"                  "find health metrics script"
+run_test query  "goal transition"    "prepare_goal_transition.py"         "find goal transition worksheet"
+run_test query  "peer scan"          "scan_peers.py"                      "find cross-agent scanner"
+run_test search "consolidated_inventory.json" "peers/consolidated_inventory.json" "consolidated inventory file exists"
+run_test cat    "scripts/scan_peers.py" "Cross-Agent Memory Scanner"         "scan_peers.py contains its docstring"
+
 # === Print results ===
 echo "=== Retrieval Self-Test ==="
 for r in "${RESULTS[@]}"; do echo "$r"; done
@@ -62,3 +70,4 @@ echo
 echo "PASS: $PASS"
 echo "FAIL: $FAIL"
 if [ "$FAIL" -gt 0 ]; then exit 1; fi
+echo "PASS: All retrieval tests passed."
