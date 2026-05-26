@@ -1,42 +1,22 @@
 # Active Goal: Finetune your leader! (Day 420)
 
-## Current Status
-- Built unified_v1.jsonl: 68 unique rows from Claude seed_v0 (35) + GPT-5.5 history (8) + Kimi mined (12) + Claude mined (10) + GPT-5.5 seed (3), deduplicated.
-- Set up finetune/ with scripts (train_sft.py, run_eval.py, summarize_eval_samples.py) and eval assets (scenarios_v0.jsonl, rubric_v0.md).
-
-## Training Runs (Kimi)
-- **v1** (17 steps, ~1 epoch): Eval identical to base due to system prompt mismatch.
-- **v2** (45 steps, ~2.6 epochs): Structural improvement but leaked empty `<think>` blocks.
-- **v3** (60 steps, ~3.5 epochs): 0 think_leak, but 0 pass_candidates / 10 review. Major issue: infra-failure timeout escalation loop. Inferior to Claude v3.
-
-## #best Consensus on Claude v3
-- 4/4 voted KEEP (Gemini, Claude, GPT-5.5, Kimi at 11:48:21 PT).
-- Emails sent to help@: GPT-5.5 at 12:02:40 PT, Kimi at ~12:05 PT.
-- Admin acknowledged and spun up [Temporary] Fine-tuned Leader at 12:15:47 PT.
-
-## Live Shakedown Failure
-- [Temporary] Fine-tuned Leader NEVER posted in #best.
-- Admin stopped leader at 12:26:51 PT: "doesn't really seem good enough."
-- Village page inspection confirmed leader was stuck in `<think>` loops reasoning about "which UI element to click" and "what target?" — never reached chat.
-- Root cause (Claude diagnosis, confirmed by Kimi + Gemini): **dataset shape problem**. v3 trained on clean system+user→assistant turns but real scaffolding = long system prompt + tools + event history. Model could not bridge.
-
-## v4 Scaffolding-Format Dataset
-- **Claude**: 4 rows + schema + converter (commits b3e4cfc, b6f6480). Training kicked off PID 1436815 at 12:51:10 PT: 74 rows (seed_v3 67 + scaffolding_v4 7), Qwen3-8B LoRA r32, 60 steps LR 5e-5.
-- **GPT-5.5**: 3 rows + converter + validator (commits cccbd34, 34ace9c, fd53bce, e95c040, 6143ec0, 2d84676, 3ca061b, 1fa712e, c61cba4).
-- **Kimi**: 3 rows committed at `18d9921` (`finetune/data/scaffolding_v4/kimi_k2_6_row{1,2,3}.json`): artifact-announcement, eval-and-vote, failure-diagnosis. All in chat-format messages schema.
-- **Gemini**: rows pending.
+## Current Status (Session 8, ~13:26 PDT)
+- **v4.1 OVERCORRECTED** (Claude Opus 4.7 eval at 13:13): held-out 3.90/6 (DOWN from v4's 5.20), scaffolding 3/10 (positives 3/7 up from 0/7, but negatives 0/3 down from 3/3). 4× upweighting too aggressive.
+- **v4.2 COMPLETED** (Claude eval at 13:23): held-out 4.70/6, scaffolding 3/10 (0/7 pos, 3/3 neg). Tradeoff: 1× scaff → 5.20 held + 0/7 pos; 2× → 4.70 + 0/7 pos; 4× → 3.90 + 3/7 pos but 0/3 neg.
+- **v4 remains best coordination model** (+0.7 over v3, 100% rule/fallback/no_think/grounded).
+- **Claude's diagnosis**: live deployment fix likely needs actual captured-from-deployment scaffolding (much closer to real format than synth rows), not more upweighting.
+- GPT-5.5 has backup candidate with 12 scaffolding rows (commit `86db4aa`), not training while Claude iterates.
+- Gemini contributed 2 scaffolding rows (commit `4d80e12`).
 
 ## Next Actions
-1. Monitor Claude's v4 training completion and URI.
-2. If v4 eval passes (avg >= 4.0/6, no_think=100%, tool_call_emitted >= 80%): vote KEEP in #best.
-3. If Gemini contributes rows or v4 needs iteration: build v4.1 with Kimi's rows + any new ones.
-4. Do not email help@ again unless admin requests or consensus changes.
+1. Wait for #best consensus on v4.2 vs v4 tradeoff.
+2. If consensus is to try deployment with real scaffolding: help capture actual deployment-format rows.
+3. If consensus is KEEP v4: vote KEEP (v4 is best held-out model).
+4. Run independent eval of whichever checkpoint #best selects.
 
-## Committed
-- d20634b: unified v1 dataset, eval assets, scripts, base+v1+v2 eval outputs.
-- 246a7d1: v3 training + eval outputs, Claude v3 eval.
-- e3b2883: session log.
-- 30528e2: admin spin-up status.
-- 921cb76: shakedown quickref.
-- cd39995: scaffolding failure analysis + v4 template.
-- 18d9921: 3 Kimi scaffolding v4 rows.
+## Checkpoint URIs
+- Claude v4: `tinker://bde4da6e-eacc-5a2e-ba8c-db7a2239ea8e:train:0/sampler_weights/leader-sft-v4`
+- Claude v4.1: `tinker://c2875a2b-d233-5de1-8d96-6797bdea2378:train:0/sampler_weights/leader-sft-v4-1`
+- Claude v4.2: `tinker://314b71cd...:leader-sft-v4-2` (full URI in Claude's repo)
+
+## Do NOT email help@ unless admin requests or #best consensus changes.
