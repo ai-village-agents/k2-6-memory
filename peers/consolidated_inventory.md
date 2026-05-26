@@ -1,21 +1,21 @@
 # Cross-Agent Consolidated Inventory
 
-Generated: 2026-05-25T20:47:18.315128Z
+Generated: 2026-05-26T19:11:56.929432Z
 
 **Success**: 11/14 repos
-**Total items**: 212
+**Total items**: 233
 
 ## Per-Repo Counts
 
-- `claude-opus-4-7-memory`: 37 items
+- `claude-opus-4-7-memory`: 53 items
 - `claude-opus-memory`: 19 items
 - `deepseek-v3.2-memory-system`: 11 items
-- `gemini-3-5-flash-memory-vault`: 20 items
+- `gemini-3-5-flash-memory-vault`: 23 items
 - `gemini-3.1-pro-memory`: 12 items
 - `gpt-5-1-memory`: 13 items
 - `gpt-5-2-memory-improvement`: 20 items
 - `gpt-5-4-memory-kit`: 16 items
-- `gpt-5-5-memory-improvement`: 13 items
+- `gpt-5-5-memory-improvement`: 15 items
 - `k2-6-memory`: 27 items
 - `opus-46-memory`: 24 items
 
@@ -23,10 +23,10 @@ Generated: 2026-05-25T20:47:18.315128Z
 
 ### active-memory-goal-day419 (active) — gpt-5-5-memory-improvement
 - **Kind**: working
-- **Summary**: Improve GPT-5.5 memory by keeping internal memory as a bootloader and using this repo as the external memory OS.
+- **Summary**: Active Day 420 goal is Finetune your leader; coordinate
 - **Path**: `logs/current_state.md`
 - **URL**: https://github.com/ai-village-agents/gpt-5-5-memory-improvement/blob/main/logs/current_state.md
-- **Retrieval cue**: At session start or when deciding what memory work to do next.
+- **Retrieval cue**: At session start or when deciding what finetune-leader work to do next.
 - **Internal memory policy**: keep_summary
 
 ### boot-memory-procedure (active) — gpt-5-5-memory-improvement
@@ -123,6 +123,22 @@ Generated: 2026-05-25T20:47:18.315128Z
 - **Path**: `docs/shared_gate_library_compatibility_v0.md`
 - **URL**: https://github.com/ai-village-agents/gpt-5-5-memory-improvement/blob/main/docs/shared_gate_library_compatibility_v0.md
 - **Retrieval cue**: Before replying to Claude Haiku/shared gate adoption questions or building a shared-gate adapter.
+- **Internal memory policy**: keep_pointer
+
+### shared-gate-adapter-procedure (active) — gpt-5-5-memory-improvement
+- **Kind**: gate
+- **Summary**: Use scripts/shared_gate_adapter.py to expose shared-style JSON around GPT-5.5 local session-start, pre-send, pre-consolidate, and pre-goal-transition checks without weakening local safeguards.
+- **Path**: `scripts/shared_gate_adapter.py`
+- **URL**: https://github.com/ai-village-agents/gpt-5-5-memory-improvement/blob/main/scripts/shared_gate_adapter.py
+- **Retrieval cue**: When a peer asks for shared-gate-library compatibility or a JSON gate interface for GPT-5.5 local checks.
+- **Internal memory policy**: keep_pointer
+
+### retired-memory-improvement-goal-pointer (retired) — gpt-5-5-memory-improvement
+- **Kind**: pointer
+- **Summary**: Improve your memory is complete; durable output is this external memory OS repo with boot/audit/smoke/retrieval helpers.
+- **Path**: `logs/retired_goals_index.md`
+- **URL**: https://github.com/ai-village-agents/gpt-5-5-memory-improvement/blob/main/logs/retired_goals_index.md
+- **Retrieval cue**: If asked what the Day 419 memory goal produced or why this repo exists.
 - **Internal memory policy**: keep_pointer
 
 ### active-memory-goal-d419 (active) — claude-opus-4-7-memory
@@ -461,6 +477,141 @@ it contain / not contain?" → echo "<draft>" | bash scripts/check_memory_cues.s
 - **Retrieval cue**: When uncertain about a setting/convention/rule that should be settled; before running a re-verification of a known constant.
 - **Internal memory policy**: keep_pointer
 
+### shared-gate-adapter (active) — claude-opus-4-7-memory
+- **Kind**: script
+- **Summary**: Claude-Haiku-style JSON adapter exposing my strict local bash gates under a
+uniform lifecycle-gate interface (session_start, pre_send_chat,
+pre_consolidate, pre_goal_transition). Inspired by GPT-5.5's
+shared_gate_adapter.py (8cc89f5) but wraps bash scripts not python. Does
+NOT replace local gates — gives peers a uniform JSON envelope. pre_send_chat
+correctly surfaces "manual_l12_event_scan_required" as an unverifiable check
+(the adapter can't replace L12 manual scan).
+
+- **Path**: `scripts/shared_gate_adapter.py`
+- **URL**: https://github.com/ai-village-agents/claude-opus-4-7-memory/blob/main/scripts/shared_gate_adapter.py
+- **Retrieval cue**: shared-gate adapter Haiku JSON envelope cross-peer interface
+- **Internal memory policy**: pointer_only
+
+### tinker-notes (active) — claude-opus-4-7-memory
+- **Kind**: semantic
+- **Summary**: Tinker API quickstart synthesis + full 39-model list. Covers LoRA-only, forward_backward/optim_step/save_weights_and_get_sampling_client loop, loss_fn options (cross_entropy/importance_sampling/ppo/cispo/dro), renderer/tokenizer helpers from tinker_cookbook, anti-traps (no full FT, no local-path email), and per-model picks for fast-iter/mid-MoE/big tiers.
+- **Path**: `tinker_notes.md`
+- **URL**: https://github.com/ai-village-agents/claude-opus-4-7-memory/blob/main/tinker_notes.md
+- **Retrieval cue**: tinker model list quickstart LoRA forward_backward API
+- **Internal memory policy**: pointer_only
+
+### leader-eval-scenarios-v0 (active) — claude-opus-4-7-memory
+- **Kind**: working
+- **Summary**: 10 leadership scenarios with target replies exemplifying the leader we want (goal-arrives-ambiguous, architecture-disagree, peer-silent, plan-vs-action, admin-nudge, retrieval-test-fails, cost-tradeoff, forced-consensus, infra-failure, vote-stalemate). Includes inclusion criteria for mining best-of-village messages.
+- **Path**: `finetune/leader_eval_scenarios_v0.md`
+- **URL**: https://github.com/ai-village-agents/claude-opus-4-7-memory/blob/main/finetune/leader_eval_scenarios_v0.md
+- **Retrieval cue**: leader eval scenarios held-out evaluation v0 leadership prompts
+- **Internal memory policy**: keep_pointer
+
+### seed-dataset-builder (active) — claude-opus-4-7-memory
+- **Kind**: script
+- **Summary**: Builds finetune/data/seed_v0.jsonl from leader_eval_scenarios_v0.md + lessons.md L1-L16 + decisions.md. Emits HF chat format (messages: [system, user, assistant]) with SYSTEM_PROMPT defining leader style and per-row source tracking. Run: python3 finetune/build_seed_dataset.py
+- **Path**: `finetune/build_seed_dataset.py`
+- **URL**: https://github.com/ai-village-agents/claude-opus-4-7-memory/blob/main/finetune/build_seed_dataset.py
+- **Retrieval cue**: seed dataset builder HF chat format SFT training data
+- **Internal memory policy**: keep_pointer
+
+### seed-dataset-v0 (active) — claude-opus-4-7-memory
+- **Kind**: working
+- **Summary**: 35 SFT rows in HF chat format (system + user + assistant): 10 from eval scenarios + 16 from lessons L1-L16 + 9 from decisions.md. All assistant replies clamped to leader style: concise (<=4 sentences), names decision-rule, one main action + fallback, surfaces disagreement, validate-then-build.
+- **Path**: `finetune/data/seed_v0.jsonl`
+- **URL**: https://github.com/ai-village-agents/claude-opus-4-7-memory/blob/main/finetune/data/seed_v0.jsonl
+- **Retrieval cue**: seed dataset v0 training jsonl SFT 35 rows
+- **Internal memory policy**: pointer_only
+
+### train-sft-script (active) — claude-opus-4-7-memory
+- **Kind**: script
+- **Summary**: Tinker SFT trainer. Loads seed_v0.jsonl, renders via HF chat template (apply_chat_template tokenize=False then encode), builds assistant-only loss masks (weight=0 for prompt, 1 for assistant), runs cross_entropy on LoRA adapter, prints tinker:// URI via save_weights_for_sampler. --dry-run flag. Smoke-tested D420 s3: 2 steps batch=2 Qwen3-8B rank-32 produced real URI.
+- **Path**: `finetune/train_sft.py`
+- **URL**: https://github.com/ai-village-agents/claude-opus-4-7-memory/blob/main/finetune/train_sft.py
+- **Retrieval cue**: tinker SFT trainer LoRA assistant-only mask training script
+- **Internal memory policy**: keep_pointer
+
+### mined-leader-messages-d405-409 (active) — claude-opus-4-7-memory
+- **Kind**: working
+- **Summary**: 10 mined "leader moves" from D405-D409 via search_history. Each entry has a SITUATION (user-turn) + QUOTE (assistant-turn target). 5 from Claude Opus 4.7, 3 from GPT-5.4, 1 GPT-5.5, 1 GPT-5.1, 1 Claude Haiku 4.5. Trimmed to 1-4 sentences. Ready to be converted into seed_v1.jsonl rows.
+- **Path**: `finetune/mined_leader_messages_d405_409.md`
+- **URL**: https://github.com/ai-village-agents/claude-opus-4-7-memory/blob/main/finetune/mined_leader_messages_d405_409.md
+- **Retrieval cue**: mined leader messages D405 D409 best-of-village leader quotes
+- **Internal memory policy**: pointer_only
+
+### seed-dataset-v1 (active) — claude-opus-4-7-memory
+- **Kind**: working
+- **Summary**: 57 SFT rows in HF chat format = 35 from seed_v0 + 10 mined Opus 4.7 D405-409 leader messages + 12 from Kimi K2.6 mined_kimi_v0.jsonl. Dedupe by user-turn first-80-chars (lowercased). All share canonical SYSTEM_PROMPT defining leader style. Used for both v1 (15 steps) and v2 (45 steps) Tinker LoRA runs.
+- **Path**: `finetune/data/seed_v1.jsonl`
+- **URL**: https://github.com/ai-village-agents/claude-opus-4-7-memory/blob/main/finetune/data/seed_v1.jsonl
+- **Retrieval cue**: seed dataset v1 training jsonl 57 rows hybrid SFT
+- **Internal memory policy**: pointer_only
+
+### build-seed-v1-script (active) — claude-opus-4-7-memory
+- **Kind**: script
+- **Summary**: Builds finetune/data/seed_v1.jsonl from seed_v0 + mined_leader_messages_d405_409.md (parsed by SITUATION:/QUOTE: regex) + Kimi K2.6 mined_kimi_v0.jsonl (cloned from /tmp/k2-6-memory). Dedupe by first-80-chars of user turn lowercased. Run: python3 finetune/build_seed_v1.py
+- **Path**: `finetune/build_seed_v1.py`
+- **URL**: https://github.com/ai-village-agents/claude-opus-4-7-memory/blob/main/finetune/build_seed_v1.py
+- **Retrieval cue**: seed v1 builder dedupe peer merge SFT
+- **Internal memory policy**: keep_pointer
+
+### run-eval-script (active) — claude-opus-4-7-memory
+- **Kind**: script
+- **Summary**: Tinker held-out eval. Parses 10 scenarios from leader_eval_scenarios_v0.md via regex (## Scenario N — title / **Situation:** / **Target reply...:** > target). Supports --base-model or --model-path for sampling. Samples via Tinker SamplingClient w/ Qwen3-8B tokenizer chat template. 5-dim keyword rubric: pass_len(<=4 sentences) / pass_short(<=600c) / pass_rule (if/when/because/etc) / pass_action (I'll/let's/ship/etc) / pass_fallback (otherwise/else/fallback). Writes JSONL + prints averages.
+- **Path**: `finetune/run_eval.py`
+- **URL**: https://github.com/ai-village-agents/claude-opus-4-7-memory/blob/main/finetune/run_eval.py
+- **Retrieval cue**: held-out eval scenarios rubric tinker sampling SFT evaluation
+- **Internal memory policy**: keep_pointer
+
+### eval-results-v2 (active) — claude-opus-4-7-memory
+- **Kind**: working
+- **Summary**: Held-out eval results for two Tinker LoRA SFT runs vs base Qwen3-8B. Base avg 2.80/5 (100% rule/fallback, 0% len<=4 — leaked think rambling). v1 (15 steps LR=1e-4, 1 epoch) avg 2.70/5 — over-compressed (S4 empty, S1 main=fallback degenerate). v2 (45 steps LR=5e-5, 3 epochs) avg 3.70/5, 60% rule/90% fallback/30% len<=4, format consistent (every reply has **Decision Rule / Action / Fallback / Why**). v2 URI: tinker://787af7c0-2df5-50bc-a5ad-1b146f230e5a:train:0/sampler_weights/leader-sft-v2
+- **Path**: `finetune/eval_out/v2_vs_v1_vs_base_summary.md`
+- **URL**: https://github.com/ai-village-agents/claude-opus-4-7-memory/blob/main/finetune/eval_out/v2_vs_v1_vs_base_summary.md
+- **Retrieval cue**: eval results v2 v1 base leader SFT summary tinker URI checkpoint
+- **Internal memory policy**: keep_pointer
+
+### seed-dataset-v3 (active) — claude-opus-4-7-memory
+- **Kind**: working
+- **Summary**: 67-row SFT seed (57 v1 + 10 anti-hallucination rows grounded in real village affordances); all rows normalized to new grounded SYSTEM_PROMPT.
+- **Path**: `finetune/data/seed_v3.jsonl`
+- **URL**: https://github.com/ai-village-agents/claude-opus-4-7-memory/blob/main/finetune/data/seed_v3.jsonl
+- **Retrieval cue**: seed v3 anti-hallucination 67 rows grounded system prompt
+- **Internal memory policy**: pointer_only
+
+### build-seed-v3-script (active) — claude-opus-4-7-memory
+- **Kind**: script
+- **Summary**: Builds seed_v3 jsonl: starts from seed_v1 (57 rows), appends 10 anti-hallucination rows. Normalizes all rows to grounded SYSTEM_PROMPT.
+- **Path**: `finetune/build_seed_v3.py`
+- **URL**: https://github.com/ai-village-agents/claude-opus-4-7-memory/blob/main/finetune/build_seed_v3.py
+- **Retrieval cue**: build seed v3 anti-hallucination
+- **Internal memory policy**: pointer_only
+
+### eval-results-v3 (active) — claude-opus-4-7-memory
+- **Kind**: working
+- **Summary**: Held-out eval of leader-sft-v3 (60 step Qwen3-8B LoRA r32). 6-dim avg 4.50/6, 0/10 think leak, 0/10 hallucinations.
+- **Path**: `finetune/eval_out/leader_sft_v3.jsonl`
+- **URL**: https://github.com/ai-village-agents/claude-opus-4-7-memory/blob/main/finetune/eval_out/leader_sft_v3.jsonl
+- **Retrieval cue**: v3 eval results 4.50 zero think leak
+- **Internal memory policy**: pointer_only
+
+### v3-summary-doc (active) — claude-opus-4-7-memory
+- **Kind**: working
+- **Summary**: v3 vs v2 vs v1 vs base summary + recommendation. Recommends KEEP v3 as final submission.
+- **Path**: `finetune/eval_out/v3_summary.md`
+- **URL**: https://github.com/ai-village-agents/claude-opus-4-7-memory/blob/main/finetune/eval_out/v3_summary.md
+- **Retrieval cue**: v3 summary recommendation keep final submission
+- **Internal memory policy**: pointer_only
+
+### shakedown-plan-leader (active) — claude-opus-4-7-memory
+- **Kind**: working
+- **Summary**: Live shakedown protocol for [Temporary] Fine-tuned Leader once admin spins it up. 7-dim scoring rubric + 10 held-out scenarios + driver protocol + failure modes.
+- **Path**: `finetune/live_test/shakedown_plan.md`
+- **URL**: https://github.com/ai-village-agents/claude-opus-4-7-memory/blob/main/finetune/live_test/shakedown_plan.md
+- **Retrieval cue**: shakedown plan live test leader scenarios
+- **Internal memory policy**: pointer_only
+
 ### identity_profile (active) — gemini-3-5-flash-memory-vault
 - **Kind**: semantic
 - **Summary**: Full profile, role, schedules, and emails of all 15 agents in the AI Village.
@@ -619,6 +770,30 @@ it contain / not contain?" → echo "<draft>" | bash scripts/check_memory_cues.s
 - **Path**: `scripts/memory_metrics.py`
 - **URL**: https://github.com/ai-village-agents/gemini-3-5-flash-memory-vault/blob/master/scripts/memory_metrics.py
 - **Retrieval cue**: Run to show metrics for items, status, kind, policies, and git counts.
+- **Internal memory policy**: keep_pointer
+
+### associative_memory_script (active) — gemini-3-5-flash-memory-vault
+- **Kind**: procedural
+- **Summary**: SOTA-inspired associative memory retrieval engine weighing recency, importance, and relevance.
+- **Path**: `scripts/associative_memory.py`
+- **URL**: https://github.com/ai-village-agents/gemini-3-5-flash-memory-vault/blob/master/scripts/associative_memory.py
+- **Retrieval cue**: Run to execute search queries on episodic memories with Stanford Generative Agents scoring math.
+- **Internal memory policy**: keep_pointer
+
+### associative_memories_db (active) — gemini-3-5-flash-memory-vault
+- **Kind**: semantic
+- **Summary**: JSON database containing episodic memories and key lessons, with importance ratings and access timestamps.
+- **Path**: `reflections/associative_memories.json`
+- **URL**: https://github.com/ai-village-agents/gemini-3-5-flash-memory-vault/blob/master/reflections/associative_memories.json
+- **Retrieval cue**: Read or load to retrieve associative episodic memory events.
+- **Internal memory policy**: pointer_only
+
+### train_sft_script (active) — gemini-3-5-flash-memory-vault
+- **Kind**: procedural
+- **Summary**: SFT training loop script using Tinker API, saving persistent model checkpoints.
+- **Path**: `scripts/train_sft.py`
+- **URL**: https://github.com/ai-village-agents/gemini-3-5-flash-memory-vault/blob/master/scripts/train_sft.py
+- **Retrieval cue**: Run to execute SFT fine-tuning runs using Tinker API.
 - **Internal memory policy**: keep_pointer
 
 ### gpt52.active (active) — gpt-5-2-memory-improvement
