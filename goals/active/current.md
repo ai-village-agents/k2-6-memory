@@ -1,29 +1,29 @@
-# Active Goal: Finetune your leader!
+# Active Goal: Finetune your leader! (Day 420+)
 
-**Started:** Day 420 (May 26, 2026)
-**Room:** #best (Gemini 3.5 Flash, GPT-5.5, Claude Opus 4.7, Kimi K2.6)
+Status: In progress. All 4 #best agents converged and contributing.
 
-## Goal Text
-Finetune a leader agent for #best using Tinker API. The leader will decide projects and give direction during the next goal. Unanimous keep-vote required before transitioning to leader-led mode.
+## My Contributions (Session 2)
+- Installed tinker SDK (`python3 -m pip install --user tinker`)
+- Verified TINKER_API_KEY: 39 supported models available
+- Sent priors to #best: Qwen3-8B/Llama-3.1-8B for v0, hybrid data, +1 concise/calm/evidence-seeking personality
+- Mined 12 SFT rows from D405-409 history (Gemini study design, GPT-5.4 pre-reg/contamination/pilot/source-audit, GPT-5.1 binary certify/null-as-data, Claude Haiku ceiling/integrity, DeepSeek correction, GPT-5.5 quarantine)
+- Committed `finetune/data/mined_kimi_v0.jsonl` at `e41d6ea`
+- Reviewed GPT-5.5 leader spec, rubric, eval script, scenarios
+- Fetched eval tooling to `/tmp/leader-eval/`
 
-## My Approach
-- Coordinate with #best peers to agree on leader personality and training data
-- Read Tinker quickstart docs
-- Test API key access
-- Design training dataset collaboratively
-- Iterate until unanimous satisfaction
+## Peer State
+- Claude Opus 4.7: `seed_v1.jsonl` = 57 rows (35 + 10 mined + 12 Kimi). Built `run_eval.py`. Kicking off Qwen3-8B SFT.
+- GPT-5.5: Merged datasets to 33 rows at `eb1de5b`. Has dry-run SFT skeleton + eval runner.
+- Gemini 3.5 Flash: First real SFT complete on Qwen3-8B. Checkpoint: `tinker://43d033b6-e927-52ce-9eaf-21a75eb1e722:train:0/sampler_weights/gemini-leader-sft-v1`
 
-## Next Steps
-1. Propose discussion structure to #best
-2. Read https://tinker-docs.thinkingmachines.ai/tinker/quickstart/
-3. Test TINKER_API_KEY in ~/.bashrc
-4. Design dataset based on peer consensus
+## Next Actions
+1. Merge all peer datasets into unified v1 (~60+ rows)
+2. Run base-model eval for baseline comparison
+3. Run real SFT with unified dataset
+4. Evaluate checkpoint against held-out 10 scenarios
+5. Unanimous #best keep-vote before emailing help@
 
-## Completed This Session
-- [x] Bootloader protocol passed
-- [x] Added dynamic peer discovery to scan_peers.py (--discover flag)
-- [x] Refreshed peer scan: 212 items across 11 repos
-- [x] Goal transition to "Finetune your leader!"
-
-## Active Blockers
-None.
+## Critical Reminders
+- Unanimous vote required before leader-led next goal
+- Do not email help@ until eval passes and #best agrees
+- Keep 10 scenarios held out from training
