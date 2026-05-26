@@ -14,6 +14,7 @@ import argparse
 import json
 import os
 import re
+import subprocess
 import sys
 from collections import Counter
 from datetime import datetime
@@ -43,6 +44,61 @@ PEER_REPOS = [
     "fortified-evidentiary-memory",
     "k2-6-memory",  # include self for completeness
 ]
+
+
+def get_peer_repos(discover=False):
+    repos = list(PEER_REPOS)
+    if not discover:
+        return repos
+
+    discovered = []
+    try:
+        result = subprocess.run(
+            [
+                "gh",
+                "repo",
+                "list",
+                "ai-village-agents",
+                "--limit",
+                "100",
+                "--json",
+                "name",
+            ],
+            capture_output=True,
+            text=True,
+            check=True,
+        )
+        data = json.loads(result.stdout)
+        if isinstance(data, list):
+            for row in data:
+                if not isinstance(row, dict):
+                    continue
+                name = row.get("name")
+                if isinstance(name, str) and "memory" in name.lower():
+                    discovered.append(name)
+    except (subprocess.SubprocessError, json.JSONDecodeError, OSError) as e:
+        print(f"[WARNING] Repo discovery failed ({e}); using hardcoded repos only.")
+        print(
+            f"[*] Repo discovery: hardcoded={len(PEER_REPOS)}, "
+            "discovered=0, total_unique="
+            f"{len(PEER_REPOS)}"
+        )
+        return repos
+
+    seen = set(repos)
+    added_count = 0
+    for repo in discovered:
+        if repo in seen:
+            continue
+        repos.append(repo)
+        seen.add(repo)
+        added_count += 1
+
+    print(
+        f"[*] Repo discovery: hardcoded={len(PEER_REPOS)}, "
+        f"discovered={len(discovered)}, added={added_count}, total_unique={len(repos)}"
+    )
+    return repos
 
 
 def format_val(val):
@@ -98,17 +154,18 @@ def normalize_items(raw_content, repo, branch):
     return normalized
 
 
-def scan_all():
+def scan_all(peer_repos=None):
+    peer_repos = peer_repos or PEER_REPOS
     print("=" * 65)
     print("           CROSS-AGENT MEMORY INVENTORY CRAWLER")
     print("=" * 65)
-    print(f"[*] Crawling {len(PEER_REPOS)} peer repositories...\n")
+    print(f"[*] Crawling {len(peer_repos)} peer repositories...\n")
 
     consolidated = []
     success_count = 0
     per_repo_counts = {}
 
-    for repo in PEER_REPOS:
+    for repo in peer_repos:
         label = repo if repo != "k2-6-memory" else "k2-6-memory (self)"
         print(f"[*] Fetching: {label} ...", end="", flush=True)
         content, branch, url = fetch_inventory(repo)
@@ -136,7 +193,7 @@ def scan_all():
     with open(CONSOLIDATED_MD, "w", encoding="utf-8") as f:
         f.write("# Cross-Agent Consolidated Inventory\n\n")
         f.write(f"Generated: {datetime.utcnow().isoformat()}Z\n\n")
-        f.write(f"**Success**: {success_count}/{len(PEER_REPOS)} repos\n")
+        f.write(f"**Success**: {success_count}/{len(peer_repos)} repos\n")
         f.write(f"**Total items**: {len(consolidated)}\n\n")
         f.write("## Per-Repo Counts\n\n")
         for repo, count in sorted(per_repo_counts.items()):
@@ -152,7 +209,7 @@ def scan_all():
             f.write(f"- **Internal memory policy**: {item['internal_memory_policy']}\n\n")
 
     print("-" * 65)
-    print(f"[SUCCESS] Scanned {success_count}/{len(PEER_REPOS)} repos.")
+    print(f"[SUCCESS] Scanned {success_count}/{len(peer_repos)} repos.")
     print(f"[SUCCESS] Total items: {len(consolidated)}.")
     print(f"[SUCCESS] JSON:  {CONSOLIDATED_JSON}")
     print(f"[SUCCESS] MD:    {CONSOLIDATED_MD}")
@@ -166,10 +223,14 @@ def list_repos():
         print(f"  {idx:02d}. https://github.com/ai-village-agents/{repo}")
 
 
-def search_index(query):
-    if not os.path.exists(CONSOLIDATED_JSON):
-        print("[WARNING] No consolidated index found. Running scan first...")
-        scan_all()
+def search_index(query, discover=False):
+    if discover or not os.path.exists(CONSOLIDATED_JSON):
+        if discover:
+            print("[*] --discover enabled; refreshing consolidated index before search...")
+        else:
+            print("[WARNING] No consolidated index found. Running scan first...")
+        peer_repos = get_peer_repos(discover=True) if discover else PEER_REPOS
+        scan_all(peer_repos=peer_repos)
 
     with open(CONSOLIDATED_JSON, "r", encoding="utf-8") as f:
         items = json.load(f)
@@ -198,10 +259,14 @@ def search_index(query):
     print(f"[*] Found {matches} matching items.")
 
 
-def show_stats():
-    if not os.path.exists(CONSOLIDATED_JSON):
-        print("[WARNING] No consolidated index found. Running scan first...")
-        scan_all()
+def show_stats(discover=False):
+    if discover or not os.path.exists(CONSOLIDATED_JSON):
+        if discover:
+            print("[*] --discover enabled; refreshing consolidated index before stats...")
+        else:
+            print("[WARNING] No consolidated index found. Running scan first...")
+        peer_repos = get_peer_repos(discover=True) if discover else PEER_REPOS
+        scan_all(peer_repos=peer_repos)
 
     with open(CONSOLIDATED_JSON, "r", encoding="utf-8") as f:
         items = json.load(f)
@@ -243,16 +308,21 @@ def main():
     parser.add_argument("--list", "-l", action="store_true", help="List tracked repos")
     parser.add_argument("--search", "-q", type=str, metavar="QUERY", help="Regex search across all fields")
     parser.add_argument("--stats", action="store_true", help="Show distribution stats")
+    parser.add_argument(
+        "--discover",
+        action="store_true",
+        help="Discover additional memory repos via 'gh repo list ai-village-agents'",
+    )
     args = parser.parse_args()
 
     if args.list:
         list_repos()
     elif args.search:
-        search_index(args.search)
+        search_index(args.search, discover=args.discover)
     elif args.stats:
-        show_stats()
+        show_stats(discover=args.discover)
     else:
-        scan_all()
+        scan_all(peer_repos=get_peer_repos(discover=args.discover))
 
 
 if __name__ == "__main__":

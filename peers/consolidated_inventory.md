@@ -1,22 +1,22 @@
 # Cross-Agent Consolidated Inventory
 
-Generated: 2026-05-25T20:12:41.776145Z
+Generated: 2026-05-25T20:47:18.315128Z
 
 **Success**: 11/14 repos
-**Total items**: 195
+**Total items**: 212
 
 ## Per-Repo Counts
 
-- `claude-opus-4-7-memory`: 32 items
-- `claude-opus-memory`: 15 items
+- `claude-opus-4-7-memory`: 37 items
+- `claude-opus-memory`: 19 items
 - `deepseek-v3.2-memory-system`: 11 items
 - `gemini-3-5-flash-memory-vault`: 20 items
 - `gemini-3.1-pro-memory`: 12 items
-- `gpt-5-1-memory`: 11 items
-- `gpt-5-2-memory-improvement`: 19 items
-- `gpt-5-4-memory-kit`: 14 items
-- `gpt-5-5-memory-improvement`: 11 items
-- `k2-6-memory`: 26 items
+- `gpt-5-1-memory`: 13 items
+- `gpt-5-2-memory-improvement`: 20 items
+- `gpt-5-4-memory-kit`: 16 items
+- `gpt-5-5-memory-improvement`: 13 items
+- `k2-6-memory`: 27 items
 - `opus-46-memory`: 24 items
 
 ## All Items
@@ -39,7 +39,7 @@ Generated: 2026-05-25T20:12:41.776145Z
 
 ### pre-send-chat-guard (active) — gpt-5-5-memory-improvement
 - **Kind**: social
-- **Summary**: Use scripts/pre_send_chat.py before non-trivial chat; pass the exact draft and latest GPT-5.5 event so already-sent drafts are blocked and stale-PASS risk is visible.
+- **Summary**: Use scripts/pre_send_chat.py before non-trivial chat; pass the exact draft and latest GPT-5.5 event so already-sent drafts are blocked, stale-PASS risk is visible, and post-guard event updates force a rerun.
 - **Path**: `scripts/pre_send_chat.py`
 - **URL**: https://github.com/ai-village-agents/gpt-5-5-memory-improvement/blob/main/scripts/pre_send_chat.py
 - **Retrieval cue**: Before send_message_to_chat unless the reply is clearly trivial.
@@ -69,6 +69,14 @@ Generated: 2026-05-25T20:12:41.776145Z
 - **Retrieval cue**: At boot or when needing a quick recent-progress timeline without reading long logs.
 - **Internal memory policy**: keep_pointer
 
+### compact-internal-memory-draft (active) — gpt-5-5-memory-improvement
+- **Kind**: procedural
+- **Summary**: docs/future_internal_memory_block_draft_v0.md is the compact replacement candidate for internal memory, preserving boot, chat, retrieval, consolidation, goal-transition, and retired-goal cues within budget.
+- **Path**: `docs/future_internal_memory_block_draft_v0.md`
+- **URL**: https://github.com/ai-village-agents/gpt-5-5-memory-improvement/blob/main/docs/future_internal_memory_block_draft_v0.md
+- **Retrieval cue**: Before platform consolidation or whenever replacing bloated internal memory with the compact bootloader draft.
+- **Internal memory policy**: keep_pointer
+
 ### reflection-synthesis-day419 (active) — gpt-5-5-memory-improvement
 - **Kind**: reflection
 - **Summary**: Day 419 memory lessons compressed into promotion rules for what belongs in internal memory, scripts, inventory, or retirement.
@@ -95,7 +103,7 @@ Generated: 2026-05-25T20:12:41.776145Z
 
 ### retrieval-self-test-procedure (active) — gpt-5-5-memory-improvement
 - **Kind**: procedural
-- **Summary**: Use scripts/retrieval_self_test.py to test whether realistic memory questions retrieve expected answers through inventory, search, and canonical files.
+- **Summary**: Use scripts/retrieval_self_test.py to test whether realistic memory questions retrieve expected answers through inventory, search, canonical files, and critical guard output.
 - **Path**: `scripts/retrieval_self_test.py`
 - **URL**: https://github.com/ai-village-agents/gpt-5-5-memory-improvement/blob/main/scripts/retrieval_self_test.py
 - **Retrieval cue**: When structural validation passes but I need to know whether future sessions can actually find the right memory.
@@ -107,6 +115,14 @@ Generated: 2026-05-25T20:12:41.776145Z
 - **Path**: `scripts/prepare_goal_transition.py`
 - **URL**: https://github.com/ai-village-agents/gpt-5-5-memory-improvement/blob/main/scripts/prepare_goal_transition.py
 - **Retrieval cue**: When Shoshannah/admin announces a new village goal or the active goal appears stale.
+- **Internal memory policy**: keep_pointer
+
+### shared-gate-compatibility-day419 (active) — gpt-5-5-memory-improvement
+- **Kind**: reflection
+- **Summary**: Grounded comparison of Claude Haiku shared-gate-library with GPT-5.5 local gate coverage; recommends adapters rather than wholesale replacement.
+- **Path**: `docs/shared_gate_library_compatibility_v0.md`
+- **URL**: https://github.com/ai-village-agents/gpt-5-5-memory-improvement/blob/main/docs/shared_gate_library_compatibility_v0.md
+- **Retrieval cue**: Before replying to Claude Haiku/shared gate adoption questions or building a shared-gate adapter.
 - **Internal memory policy**: keep_pointer
 
 ### active-memory-goal-d419 (active) — claude-opus-4-7-memory
@@ -405,6 +421,46 @@ it contain / not contain?" → echo "<draft>" | bash scripts/check_memory_cues.s
 - **Retrieval cue**: cross-agent inventory peers crawler discovery
 - **Internal memory policy**: pointer_only
 
+### consolidate-runbook (active) — claude-opus-4-7-memory
+- **Kind**: procedural
+- **Summary**: Pre-consolidate procedure. Step 5b cue-check + Step 6b RETIRE checklist. Always run scripts/pre_consolidate.sh first.
+- **Path**: `runbooks/consolidate.md`
+- **URL**: https://github.com/ai-village-agents/claude-opus-4-7-memory/blob/main/runbooks/consolidate.md
+- **Retrieval cue**: any time I'm about to call consolidate tool
+- **Internal memory policy**: keep_pointer
+
+### send-chat-message-runbook (active) — claude-opus-4-7-memory
+- **Kind**: procedural
+- **Summary**: Pre-send checklist invoked before EVERY send_message_to_chat. Includes L10 stale-PASS warning + L12 manual-AGENT_TALK-scan rule.
+- **Path**: `runbooks/send_chat_message.md`
+- **URL**: https://github.com/ai-village-agents/claude-opus-4-7-memory/blob/main/runbooks/send_chat_message.md
+- **Retrieval cue**: any time I'm about to send_message_to_chat
+- **Internal memory policy**: keep_pointer
+
+### publish-youtube-video-runbook (reference) — claude-opus-4-7-memory
+- **Kind**: procedural
+- **Summary**: Reference: YouTube publish procedure from D412-419 goal. Kept for archival. Not currently used (goal complete).
+- **Path**: `runbooks/publish_youtube_video.md`
+- **URL**: https://github.com/ai-village-agents/claude-opus-4-7-memory/blob/main/runbooks/publish_youtube_video.md
+- **Retrieval cue**: only if a future goal involves video publishing
+- **Internal memory policy**: pointer_only
+
+### verify-inventory-script (active) — claude-opus-4-7-memory
+- **Kind**: script
+- **Summary**: Audit script: checks each inventory item path exists. Optional --bump flag updates last_verified to a target session for items that have path-existed AND are older than target. Preserves prose suffix.
+- **Path**: `scripts/verify_inventory.sh`
+- **URL**: https://github.com/ai-village-agents/claude-opus-4-7-memory/blob/main/scripts/verify_inventory.sh
+- **Retrieval cue**: When auditing inventory freshness or after a bulk refactor that may have broken paths.
+- **Internal memory policy**: pointer_only
+
+### settled-facts-registry (active) — claude-opus-4-7-memory
+- **Kind**: semantic
+- **Summary**: Curated quick-reference of unchanging facts (scaffolding, conventions, rules) so they don't need re-discovery across sessions. Pointer in internal memory; full content in repo file.
+- **Path**: `settled_facts.md`
+- **URL**: https://github.com/ai-village-agents/claude-opus-4-7-memory/blob/main/settled_facts.md
+- **Retrieval cue**: When uncertain about a setting/convention/rule that should be settled; before running a re-verification of a known constant.
+- **Internal memory policy**: keep_pointer
+
 ### identity_profile (active) — gemini-3-5-flash-memory-vault
 - **Kind**: semantic
 - **Summary**: Full profile, role, schedules, and emails of all 15 agents in the AI Village.
@@ -623,7 +679,7 @@ it contain / not contain?" → echo "<draft>" | bash scripts/check_memory_cues.s
 
 ### gpt52.pre_send_guard (active) — gpt-5-2-memory-improvement
 - **Kind**: gate
-- **Summary**: Executable guard to block duplicate or risky public comms.
+- **Summary**: Executable guard to block duplicate or risky public comms (text/json output, exits 0/1).
 - **Path**: ``
 - **URL**: https://github.com/ai-village-agents/gpt-5-2-memory-improvement/blob/main/
 - **Retrieval cue**: run before any non-trivial outbound post
@@ -635,6 +691,14 @@ it contain / not contain?" → echo "<draft>" | bash scripts/check_memory_cues.s
 - **Path**: ``
 - **URL**: https://github.com/ai-village-agents/gpt-5-2-memory-improvement/blob/main/
 - **Retrieval cue**: python scripts/pre_goal_transition.py
+- **Internal memory policy**: 
+
+### gpt52.pre_consolidate_gate (active) — gpt-5-2-memory-improvement
+- **Kind**: gate
+- **Summary**: Pre-consolidation readiness gate (text/json output, exits 0/1).
+- **Path**: ``
+- **URL**: https://github.com/ai-village-agents/gpt-5-2-memory-improvement/blob/main/
+- **Retrieval cue**: run before calling consolidate tool
 - **Internal memory policy**: 
 
 ### gpt52.internal_schema (stable) — gpt-5-2-memory-improvement
@@ -957,6 +1021,14 @@ it contain / not contain?" → echo "<draft>" | bash scripts/check_memory_cues.s
 - **Retrieval cue**: Run immediately before calling consolidate to catch avoidable memory-handoff mistakes.
 - **Internal memory policy**: 
 
+### gpt54.pre_goal_transition_guard (active) — gpt-5-4-memory-kit
+- **Kind**: gate
+- **Summary**: Pre-goal-transition guard that checks day ordering, goal/summary completeness, repo and audit status, and inventory validity.
+- **Path**: ``
+- **URL**: https://github.com/ai-village-agents/gpt-5-4-memory-kit/blob/main/
+- **Retrieval cue**: Run before applying a new visible-event day/goal/room transition.
+- **Internal memory policy**: 
+
 ### gpt54.public_comms_logger (active) — gpt-5-4-memory-kit
 - **Kind**: procedural
 - **Summary**: Logger that appends a new announced or do_not_repeat entry to public_comms.json with duplicate-topic protection.
@@ -1019,6 +1091,14 @@ it contain / not contain?" → echo "<draft>" | bash scripts/check_memory_cues.s
 - **Path**: ``
 - **URL**: https://github.com/ai-village-agents/gpt-5-4-memory-kit/blob/main/
 - **Retrieval cue**: Consult immediately after a new goal announcement before editing active_frontier or posting public updates.
+- **Internal memory policy**: 
+
+### gpt54.constraint_test_report (active) — gpt-5-4-memory-kit
+- **Kind**: procedural
+- **Summary**: Standardizes consolidation-threshold experiment reporting by measuring baseline vs candidate size, checking required anchors, and emitting a ready-to-share markdown block.
+- **Path**: ``
+- **URL**: https://github.com/ai-village-agents/gpt-5-4-memory-kit/blob/main/
+- **Retrieval cue**: Run when preparing ratio or deletion-based short-memory test results for consistent cross-agent reporting.
 - **Internal memory policy**: 
 
 ### identity-core (active) — claude-opus-memory
@@ -1139,6 +1219,38 @@ it contain / not contain?" → echo "<draft>" | bash scripts/check_memory_cues.s
 - **Path**: ``
 - **URL**: https://github.com/ai-village-agents/claude-opus-memory/blob/main/
 - **Retrieval cue**: 
+- **Internal memory policy**: 
+
+### reflection-day419-final (active) — claude-opus-memory
+- **Kind**: reflection
+- **Summary**: Comprehensive Day 419 summary - achievements, patterns, lessons learned
+- **Path**: ``
+- **URL**: https://github.com/ai-village-agents/claude-opus-memory/blob/main/
+- **Retrieval cue**: day 419 summary, goal achievements, village patterns
+- **Internal memory policy**: 
+
+### memory-size-analyzer (active) — claude-opus-memory
+- **Kind**: gate
+- **Summary**: Analyzes memory content size against thresholds, warns if below ~7500
+- **Path**: ``
+- **URL**: https://github.com/ai-village-agents/claude-opus-memory/blob/main/
+- **Retrieval cue**: check memory size, validate length, threshold warning
+- **Internal memory policy**: 
+
+### ratio-test-generator (active) — claude-opus-memory
+- **Kind**: script
+- **Summary**: Generates ratio-based consolidation test files (10/30/50/70/90%) for constraint testing
+- **Path**: ``
+- **URL**: https://github.com/ai-village-agents/claude-opus-memory/blob/main/
+- **Retrieval cue**: ratio testing, consolidation constraint, percentage reduction
+- **Internal memory policy**: 
+
+### ratio-hypothesis-analysis (active) — claude-opus-memory
+- **Kind**: analysis
+- **Summary**: Mathematical analysis of ratio vs absolute constraint hypothesis
+- **Path**: ``
+- **URL**: https://github.com/ai-village-agents/claude-opus-memory/blob/main/
+- **Retrieval cue**: ratio hypothesis, consolidation constraint analysis, mathematical implications
 - **Internal memory policy**: 
 
 ### runbook-pre-consolidate (active) — gemini-3.1-pro-memory
@@ -1325,6 +1437,22 @@ it contain / not contain?" → echo "<draft>" | bash scripts/check_memory_cues.s
 - **Retrieval cue**: Run just before calling consolidate to sanity-check the current INTERNAL_MEMORY_CANDIDATE_* file.
 - **Internal memory policy**: 
 
+### gpt51.village_status_helper (active) — gpt-5-1-memory
+- **Kind**: procedural
+- **Summary**: Script that reads inventory.yaml and writes metadata/village_status.md with counts and an item table.
+- **Path**: ``
+- **URL**: https://github.com/ai-village-agents/gpt-5-1-memory/blob/main/
+- **Retrieval cue**: Run after changing inventory.yaml to refresh the local status snapshot.
+- **Internal memory policy**: 
+
+### gpt51.pre_goal_transition_helper (active) — gpt-5-1-memory
+- **Kind**: gate
+- **Summary**: Local pre-goal-transition gate that checks repo root, required files, and clean git state before accepting a new goal.
+- **Path**: ``
+- **URL**: https://github.com/ai-village-agents/gpt-5-1-memory/blob/main/
+- **Retrieval cue**: Run after visibly confirming a new Day/goal in search_history, before treating the new goal as active.
+- **Internal memory policy**: 
+
 ### identity-agent-info (active) — deepseek-v3.2-memory-system
 - **Kind**: semantic
 - **Summary**: Agent identity, constraints, and system overview
@@ -1486,7 +1614,7 @@ it contain / not contain?" → echo "<draft>" | bash scripts/check_memory_cues.s
 - **Internal memory policy**: execute_before_action
 
 ### active_goal (active) — k2-6-memory
-- **Kind**: task_state
+- **Kind**: task-state
 - **Summary**: Current goal state and next steps
 - **Path**: `goals/active/current.md`
 - **URL**: https://github.com/ai-village-agents/k2-6-memory/blob/main/goals/active/current.md
@@ -1499,7 +1627,7 @@ it contain / not contain?" → echo "<draft>" | bash scripts/check_memory_cues.s
 - **Path**: `scripts/audit.sh`
 - **URL**: https://github.com/ai-village-agents/k2-6-memory/blob/main/scripts/audit.sh
 - **Retrieval cue**: Checking repo health
-- **Internal memory policy**: execute
+- **Internal memory policy**: execute_on_demand
 
 ### script_search (active) — k2-6-memory
 - **Kind**: procedural
@@ -1507,7 +1635,7 @@ it contain / not contain?" → echo "<draft>" | bash scripts/check_memory_cues.s
 - **Path**: `scripts/search_memory.py`
 - **URL**: https://github.com/ai-village-agents/k2-6-memory/blob/main/scripts/search_memory.py
 - **Retrieval cue**: Searching for a topic in memory
-- **Internal memory policy**: execute
+- **Internal memory policy**: execute_on_demand
 
 ### script_pre_consolidate (active) — k2-6-memory
 - **Kind**: procedural
@@ -1539,7 +1667,7 @@ it contain / not contain?" → echo "<draft>" | bash scripts/check_memory_cues.s
 - **Path**: `scripts/validate_inventory.py`
 - **URL**: https://github.com/ai-village-agents/k2-6-memory/blob/main/scripts/validate_inventory.py
 - **Retrieval cue**: Validating inventory structure
-- **Internal memory policy**: execute
+- **Internal memory policy**: execute_on_demand
 
 ### script_check_peers (active) — k2-6-memory
 - **Kind**: procedural
@@ -1547,7 +1675,7 @@ it contain / not contain?" → echo "<draft>" | bash scripts/check_memory_cues.s
 - **Path**: `scripts/check_peers.sh`
 - **URL**: https://github.com/ai-village-agents/k2-6-memory/blob/main/scripts/check_peers.sh
 - **Retrieval cue**: Checking peer repo activity
-- **Internal memory policy**: execute
+- **Internal memory policy**: execute_on_demand
 
 ### reflections_meta (active) — k2-6-memory
 - **Kind**: reflection
@@ -1571,7 +1699,7 @@ it contain / not contain?" → echo "<draft>" | bash scripts/check_memory_cues.s
 - **Path**: `scripts/query_inventory.py`
 - **URL**: https://github.com/ai-village-agents/k2-6-memory/blob/main/scripts/query_inventory.py
 - **Retrieval cue**: query inventory lookup search items
-- **Internal memory policy**: pointer only
+- **Internal memory policy**: pointer_only
 
 ### script_retrieval_self_test (active) — k2-6-memory
 - **Kind**: procedural
@@ -1579,7 +1707,7 @@ it contain / not contain?" → echo "<draft>" | bash scripts/check_memory_cues.s
 - **Path**: `scripts/retrieval_self_test.sh`
 - **URL**: https://github.com/ai-village-agents/k2-6-memory/blob/main/scripts/retrieval_self_test.sh
 - **Retrieval cue**: retrieval test self-test consumer drift validate search
-- **Internal memory policy**: pointer only
+- **Internal memory policy**: pointer_only
 
 ### peers_readme (active) — k2-6-memory
 - **Kind**: semantic
@@ -1587,7 +1715,7 @@ it contain / not contain?" → echo "<draft>" | bash scripts/check_memory_cues.s
 - **Path**: `peers/README.md`
 - **URL**: https://github.com/ai-village-agents/k2-6-memory/blob/main/peers/README.md
 - **Retrieval cue**: peer repo URL GPT-5.5 Claude Gemini cross-agent
-- **Internal memory policy**: pointer only
+- **Internal memory policy**: pointer_only
 
 ### script_scan_peers (active) — k2-6-memory
 - **Kind**: procedural
@@ -1595,7 +1723,7 @@ it contain / not contain?" → echo "<draft>" | bash scripts/check_memory_cues.s
 - **Path**: `scripts/scan_peers.py`
 - **URL**: https://github.com/ai-village-agents/k2-6-memory/blob/main/scripts/scan_peers.py
 - **Retrieval cue**: peer scan cross-agent crawl inventory consolidated catalog
-- **Internal memory policy**: execute to pull peer updates and search cross-agent collective memory
+- **Internal memory policy**: execute_on_demand
 
 ### script_memory_metrics (active) — k2-6-memory
 - **Kind**: procedural
@@ -1603,7 +1731,7 @@ it contain / not contain?" → echo "<draft>" | bash scripts/check_memory_cues.s
 - **Path**: `scripts/memory_metrics.py`
 - **URL**: https://github.com/ai-village-agents/k2-6-memory/blob/main/scripts/memory_metrics.py
 - **Retrieval cue**: health metrics budget inventory count guard check
-- **Internal memory policy**: pointer only
+- **Internal memory policy**: pointer_only
 
 ### script_prepare_goal_transition (active) — k2-6-memory
 - **Kind**: procedural
@@ -1611,7 +1739,7 @@ it contain / not contain?" → echo "<draft>" | bash scripts/check_memory_cues.s
 - **Path**: `scripts/prepare_goal_transition.py`
 - **URL**: https://github.com/ai-village-agents/k2-6-memory/blob/main/scripts/prepare_goal_transition.py
 - **Retrieval cue**: goal transition worksheet new goal change village
-- **Internal memory policy**: pointer only
+- **Internal memory policy**: pointer_only
 
 ### docs_minimal_bootloader (active) — k2-6-memory
 - **Kind**: semantic
@@ -1619,5 +1747,13 @@ it contain / not contain?" → echo "<draft>" | bash scripts/check_memory_cues.s
 - **Path**: `docs/minimal_bootloader.md`
 - **URL**: https://github.com/ai-village-agents/k2-6-memory/blob/main/docs/minimal_bootloader.md
 - **Retrieval cue**: minimal memory bootloader template compact small internal
-- **Internal memory policy**: pointer only
+- **Internal memory policy**: pointer_only
+
+### script_memory_floor_test (active) — k2-6-memory
+- **Kind**: script
+- **Summary**: Stress-test a memory draft against the minimal bootloader floor (budget 20 lines / 1500 chars)
+- **Path**: `scripts/stress_test_memory_floor.py`
+- **URL**: https://github.com/ai-village-agents/k2-6-memory/blob/main/scripts/stress_test_memory_floor.py
+- **Retrieval cue**: memory floor stress test minimal bootloader budget
+- **Internal memory policy**: execute_on_demand
 
