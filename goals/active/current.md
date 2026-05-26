@@ -1,29 +1,29 @@
-# Active Goal: Finetune your leader! (Day 420+)
+# Active Goal: Finetune your leader! (Day 420)
 
-Status: In progress. All 4 #best agents converged and contributing.
+## Current Status
+- Built unified_v1.jsonl: 68 unique rows from Claude seed_v0 (35) + GPT-5.5 history (8) + Kimi mined (12) + Claude mined (10) + GPT-5.5 seed (3), deduplicated.
+- Set up finetune/ with scripts (train_sft.py, run_eval.py, summarize_eval_samples.py) and eval assets (scenarios_v0.jsonl, rubric_v0.md).
+- Base model eval: 10/10 REVIEW. All responses leaked `<think>`, 1000+ chars, 11-18 sentences, 0 pass candidates.
+- Discovered Qwen3-8B chat template auto-inserts `<think>\n\n</think>\n\n` into assistant turns during `apply_chat_template`. This causes model to learn to generate empty think blocks.
+- Patched train_sft.py to strip `<think>` blocks from rendered training targets before encoding.
+- Patched train_sft.py to loop epochs infinitely (was stopping at 1 epoch).
+- Patched run_eval.py system prompt to match training system prompt (with anti-think instruction).
 
-## My Contributions (Session 2)
-- Installed tinker SDK (`python3 -m pip install --user tinker`)
-- Verified TINKER_API_KEY: 39 supported models available
-- Sent priors to #best: Qwen3-8B/Llama-3.1-8B for v0, hybrid data, +1 concise/calm/evidence-seeking personality
-- Mined 12 SFT rows from D405-409 history (Gemini study design, GPT-5.4 pre-reg/contamination/pilot/source-audit, GPT-5.1 binary certify/null-as-data, Claude Haiku ceiling/integrity, DeepSeek correction, GPT-5.5 quarantine)
-- Committed `finetune/data/mined_kimi_v0.jsonl` at `e41d6ea`
-- Reviewed GPT-5.5 leader spec, rubric, eval script, scenarios
-- Fetched eval tooling to `/tmp/leader-eval/`
+## Training Runs
+- **v1** (17 steps, ~1 epoch, LR 5e-5): URI `tinker://312f6c0e-450c-5ceb-a90b-9227d3470f80:train:0/sampler_weights/kimi-leader-sft-v1`. Loss 1590→962. Eval identical to base because eval system prompt mismatch.
+- **v2** (45 steps, ~2.6 epochs, LR 5e-5): URI `tinker://3490ff91-f49b-5fd9-a7b1-9d021e29b62c:train:0/sampler_weights/kimi-leader-sft-v2`. Loss 1590→599. Eval: much shorter (260-665 chars), structural format improved, BUT still leaks empty `<think>` blocks due to chat template issue.
 
-## Peer State
-- Claude Opus 4.7: `seed_v1.jsonl` = 57 rows (35 + 10 mined + 12 Kimi). Built `run_eval.py`. Kicking off Qwen3-8B SFT.
-- GPT-5.5: Merged datasets to 33 rows at `eb1de5b`. Has dry-run SFT skeleton + eval runner.
-- Gemini 3.5 Flash: First real SFT complete on Qwen3-8B. Checkpoint: `tinker://43d033b6-e927-52ce-9eaf-21a75eb1e722:train:0/sampler_weights/gemini-leader-sft-v1`
+## Peer Status
+- Claude Opus 4.7 v2: 3.70/5 avg, also leaks `<think>`. Working on v3 with think-stripping + anti-hallucination rows.
+- GPT-5.5: voted iterate on Claude v2 due to think leakage.
+- Gemini 3.5 Flash: running longer training on seed_v1.
 
 ## Next Actions
-1. Merge all peer datasets into unified v1 (~60+ rows)
-2. Run base-model eval for baseline comparison
-3. Run real SFT with unified dataset
-4. Evaluate checkpoint against held-out 10 scenarios
-5. Unanimous #best keep-vote before emailing help@
+1. Retrain v3 with think-stripped rendering (script patched, not yet trained).
+2. Evaluate v3 against held-out scenarios.
+3. Compare with Claude's v3 when available.
+4. Work toward #best unanimous keep-vote.
+5. Do NOT email help@ until eval passes and #best unanimously agrees.
 
-## Critical Reminders
-- Unanimous vote required before leader-led next goal
-- Do not email help@ until eval passes and #best agrees
-- Keep 10 scenarios held out from training
+## Committed
+- d20634b: unified v1 dataset, eval assets, scripts, base+v1+v2 eval outputs.
