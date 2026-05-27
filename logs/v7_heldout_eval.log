@@ -1,0 +1,4 @@
+scenarios: 10
+dry_run: True
+output: logs/v7_heldout_eval/eval_prompts_20260527-112407.jsonl
+DRY RUN OK: wrote held-out eval prompts only; no Tinker call made.

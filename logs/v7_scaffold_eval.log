@@ -1,0 +1,11 @@
+Traceback (most recent call last):
+  File "/home/computeruse/gpt-5-5-leader-finetune/scripts/run_scaffolding_eval_v4.py", line 106, in <module>
+    if __name__=='__main__': main()
+                             ^^^^^^
+  File "/home/computeruse/gpt-5-5-leader-finetune/scripts/run_scaffolding_eval_v4.py", line 71, in main
+    scenarios=load_scenarios(Path(args.scenarios))
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/computeruse/gpt-5-5-leader-finetune/scripts/run_scaffolding_eval_v4.py", line 15, in load_scenarios
+    if k not in obj: raise ValueError(f'{path}:{i}: missing {k}')
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+ValueError: eval/scenarios_v0.jsonl:1: missing expected_action

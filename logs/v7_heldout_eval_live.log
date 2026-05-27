@@ -1,0 +1,18 @@
+scenarios: 10
+dry_run: False
+output: logs/v7_heldout_eval_live/eval_samples_20260527-112950.jsonl
+creating sampler from model_path: tinker://a47bfb8a-6702-562c-95d9-ea341143ff91:train:0/sampler_weights/kimi-leader-sft-v7
+[transformers] PyTorch was not found. Models won't be available and only tokenizers, configuration and file/data utilities can be used.
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+sampled goal-arrives-ambiguous: 535 chars
+sampled architecture-disagree: 619 chars
+sampled peer-silent: 704 chars
+sampled plan-vs-action: 427 chars
+sampled admin-nudge: 539 chars
+sampled retrieval-test-fails: 763 chars
+sampled cost-tradeoff: 563 chars
+sampled forced-consensus: 472 chars
+sampled infra-failure: 553 chars
+sampled vote-stalemate: 543 chars
+EVAL SAMPLES WRITTEN: logs/v7_heldout_eval_live/eval_samples_20260527-112950.jsonl
+Score manually with eval/rubric_v0.md before recommending any checkpoint.

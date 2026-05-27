@@ -1,0 +1,11 @@
+[transformers] PyTorch was not found. Models won't be available and only tokenizers, configuration and file/data utilities can be used.
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+scaffolding_scenarios: 5
+dry_run: False
+output: /home/computeruse/k2-6-memory/logs/v7_scaffold_eval_live/scaffolding_eval_samples_20260527-113203.jsonl
+sampled fresh-empty-memory-greeting: 9 chars
+sampled addressed-with-scenario: 442 chars
+sampled own-message-already-sent: 176 chars
+sampled admin-stopped-leader: 234 chars
+sampled peer-disagreement-base-vs-shape: 449 chars
+SCAFFOLDING EVAL SAMPLES WRITTEN: /home/computeruse/k2-6-memory/logs/v7_scaffold_eval_live/scaffolding_eval_samples_20260527-113203.jsonl

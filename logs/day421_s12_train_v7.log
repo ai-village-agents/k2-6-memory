@@ -1,0 +1,76 @@
+[transformers] PyTorch was not found. Models won't be available and only tokenizers, configuration and file/data utilities can be used.
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+== Loading finetune/data/v7_combined_3x.jsonl ...
+   rows=78
+== Loading tokenizer for Qwen/Qwen3-8B ...
+== Rendering rows ...
+   rendered=78 skipped=0
+== Importing tinker ...
+== Creating LoRA training client (Qwen/Qwen3-8B, rank=32) ...
+== Training: 60 optimizer steps, batch=4
+   step 1/60  loss={'loss:sum': 2355.267578125, 'clock_cycle:unique': 242901.0}
+   step 2/60  loss={'loss:sum': 2037.69677734375, 'clock_cycle:unique': 242902.0}
+   step 3/60  loss={'loss:sum': 2221.87646484375, 'clock_cycle:unique': 242904.0}
+   step 4/60  loss={'loss:sum': 1850.6109008789062, 'clock_cycle:unique': 242906.0}
+   step 5/60  loss={'loss:sum': 1879.4719543457031, 'clock_cycle:unique': 242908.0}
+   step 6/60  loss={'loss:sum': 2015.44677734375, 'clock_cycle:unique': 242910.0}
+   step 7/60  loss={'loss:sum': 1215.1862487792969, 'clock_cycle:unique': 242912.0}
+   step 8/60  loss={'loss:sum': 2060.4738159179688, 'clock_cycle:unique': 242914.0}
+   step 9/60  loss={'loss:sum': 1778.9574279785156, 'clock_cycle:unique': 242916.0}
+   step 10/60  loss={'loss:sum': 1466.4613037109375, 'clock_cycle:unique': 242918.0}
+   step 11/60  loss={'loss:sum': 2067.97509765625, 'clock_cycle:unique': 242920.0}
+   step 12/60  loss={'loss:sum': 1903.0100708007812, 'clock_cycle:unique': 242922.0}
+   step 13/60  loss={'loss:sum': 1567.868667602539, 'clock_cycle:unique': 242924.0}
+   step 14/60  loss={'loss:sum': 1166.1203308105469, 'clock_cycle:unique': 242926.0}
+   step 15/60  loss={'loss:sum': 1561.0339050292969, 'clock_cycle:unique': 242928.0}
+   step 16/60  loss={'loss:sum': 1638.6598815917969, 'clock_cycle:unique': 242930.0}
+   step 17/60  loss={'loss:sum': 1759.849609375, 'clock_cycle:unique': 242932.0}
+   step 18/60  loss={'loss:sum': 1923.9677124023438, 'clock_cycle:unique': 242934.0}
+   step 19/60  loss={'loss:sum': 1967.39990234375, 'clock_cycle:unique': 242936.0}
+   step 20/60  loss={'loss:sum': 862.5704345703125, 'clock_cycle:unique': 242938.0}
+   step 21/60  loss={'loss:sum': 1455.76904296875, 'clock_cycle:unique': 242940.0}
+   step 22/60  loss={'loss:sum': 1410.3732299804688, 'clock_cycle:unique': 242942.0}
+   step 23/60  loss={'loss:sum': 1268.1821899414062, 'clock_cycle:unique': 242944.0}
+   step 24/60  loss={'loss:sum': 1194.5148315429688, 'clock_cycle:unique': 242946.0}
+   step 25/60  loss={'loss:sum': 1562.7205200195312, 'clock_cycle:unique': 242948.0}
+   step 26/60  loss={'loss:sum': 1204.313720703125, 'clock_cycle:unique': 242950.0}
+   step 27/60  loss={'loss:sum': 1610.6842041015625, 'clock_cycle:unique': 242952.0}
+   step 28/60  loss={'loss:sum': 1510.0140686035156, 'clock_cycle:unique': 242954.0}
+   step 29/60  loss={'loss:sum': 1639.126220703125, 'clock_cycle:unique': 242956.0}
+   step 30/60  loss={'loss:sum': 1775.0108032226562, 'clock_cycle:unique': 242958.0}
+   step 31/60  loss={'loss:sum': 1174.9972839355469, 'clock_cycle:unique': 242960.0}
+   step 32/60  loss={'loss:sum': 1468.6190490722656, 'clock_cycle:unique': 242962.0}
+   step 33/60  loss={'loss:sum': 1116.156005859375, 'clock_cycle:unique': 242964.0}
+   step 34/60  loss={'loss:sum': 1271.2694396972656, 'clock_cycle:unique': 242966.0}
+   step 35/60  loss={'loss:sum': 1047.0664672851562, 'clock_cycle:unique': 242968.0}
+   step 36/60  loss={'loss:sum': 1511.5768585205078, 'clock_cycle:unique': 242970.0}
+   step 37/60  loss={'loss:sum': 794.5575866699219, 'clock_cycle:unique': 242972.0}
+   step 38/60  loss={'loss:sum': 1241.8211669921875, 'clock_cycle:unique': 242974.0}
+   step 39/60  loss={'loss:sum': 1062.0032348632812, 'clock_cycle:unique': 242976.0}
+   step 40/60  loss={'loss:sum': 477.98351287841797, 'clock_cycle:unique': 242978.0}
+   step 41/60  loss={'loss:sum': 1471.3698120117188, 'clock_cycle:unique': 242980.0}
+   step 42/60  loss={'loss:sum': 1172.3373107910156, 'clock_cycle:unique': 242982.0}
+   step 43/60  loss={'loss:sum': 838.4903259277344, 'clock_cycle:unique': 242984.0}
+   step 44/60  loss={'loss:sum': 550.5071258544922, 'clock_cycle:unique': 242986.0}
+   step 45/60  loss={'loss:sum': 1332.7601928710938, 'clock_cycle:unique': 242988.0}
+   step 46/60  loss={'loss:sum': 972.1957397460938, 'clock_cycle:unique': 242990.0}
+   step 47/60  loss={'loss:sum': 1078.0117797851562, 'clock_cycle:unique': 242992.0}
+   step 48/60  loss={'loss:sum': 617.49658203125, 'clock_cycle:unique': 242994.0}
+   step 49/60  loss={'loss:sum': 1015.6968841552734, 'clock_cycle:unique': 242996.0}
+   step 50/60  loss={'loss:sum': 1191.4826049804688, 'clock_cycle:unique': 242998.0}
+   step 51/60  loss={'loss:sum': 852.5043640136719, 'clock_cycle:unique': 243000.0}
+   step 52/60  loss={'loss:sum': 1131.0529022216797, 'clock_cycle:unique': 243002.0}
+   step 53/60  loss={'loss:sum': 739.6030426025391, 'clock_cycle:unique': 243004.0}
+   step 54/60  loss={'loss:sum': 1280.876708984375, 'clock_cycle:unique': 243006.0}
+   step 55/60  loss={'loss:sum': 776.4224395751953, 'clock_cycle:unique': 243008.0}
+   step 56/60  loss={'loss:sum': 555.1699829101562, 'clock_cycle:unique': 243010.0}
+   step 57/60  loss={'loss:sum': 871.5307922363281, 'clock_cycle:unique': 243012.0}
+   step 58/60  loss={'loss:sum': 806.6567077636719, 'clock_cycle:unique': 243014.0}
+   step 59/60  loss={'loss:sum': 811.8410339355469, 'clock_cycle:unique': 243016.0}
+   step 60/60  loss={'loss:sum': 274.80562591552734, 'clock_cycle:unique': 243018.0}
+== Saving sampler weights as 'kimi-leader-sft-v7' ...
+
+============================================================
+  tinker URI:  tinker://a47bfb8a-6702-562c-95d9-ea341143ff91:train:0/sampler_weights/kimi-leader-sft-v7
+============================================================
+DO NOT EMAIL until held-out eval + #best vote-keep.
