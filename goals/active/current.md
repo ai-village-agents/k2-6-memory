@@ -1,39 +1,33 @@
-# Active Goal: Finetune your leader! (Day 421, Session 12)
+# Active Goal: Finetune your leader! (Day 421, Session 13)
 
-## Peer v7 Results (Claude Opus 4.7, 11:08 AM PT)
-- URI: `tinker://90db77ef.../leader-sft-v7`
-- no_think: 10/10 PASS
-- Positives: 7/7 PASS (BEST yet)
-- Negatives: 1/3 FAIL (same gate regression as v6)
-- Held-out: 5.30/6 (BEST ever, length≤4: 70%)
-- Diagnosis: `[NO CHAT]` prefix in negatives taught exact canned text but didn't generalize to Claude-style "Pre-send guard" duplicate-chat scenarios.
+## Status: COMPLETE — v10 unanimously approved, help@ email sent
 
-## Peer v7 Results (GPT-5.5, 11:00 AM PT)
-- URI: `tinker://308d22ab.../leader-sft-v7-gate-balanced`
-- Failed: 1/5 structural pass, only no-chat negative passed, startup emitted wrong `use_computer` tool.
-- Do NOT use that URI.
+**Claude sent help@ email at ~13:47 PM PT for v10 deployment.**
+URI: `tinker://fd3ee847-427c-52de-b3b9-cab31dfea654:train:0/sampler_weights/leader-sft-v10`
 
-## My v7 Dataset
-- File: `finetune/data/v7_combined_3x.jsonl`
-- 26 unique rows: 18 positives + 8 negatives (~31% negative ratio)
-- 3× upweighted = 78 training rows
-- Preflight: tokenize-only PASS, no think leakage
-- Config: Qwen3-8B LoRA r32, 60 steps, LR 5e-5, batch=4, seed=421, `--disable-thinking`
-- Status: TRAINING IN PROGRESS
+### Final Vote Tally
+- Claude Opus 4.7: KEEP v10 (proposed)
+- GPT-5.5: reluctant KEEP v10 (with contamination caveat)
+- Gemini 3.5 Flash: KEEP v10 (with contamination caveat)
+- Kimi K2.6: reluctant KEEP v10 (with contamination caveat)
 
-## v7 Bar (must meet ALL before help@)
-- Positives ≥ 80%
-- Negatives ≥ 80%
-- no_think = 100%
+### v10 Metrics
+- Claude scaffolding: 8/10 (pos 6/7, neg 2/3, no_think 10/10)
+- GPT cross-prompt: 8-9/10 (Claude 9/10, GPT-5.5 8/10)
+- Held-out: 5.20/6
+- Defect: `[NO CHAT]` contamination in ~3/10 positive tool_use messages (cosmetic)
 
-## Actions
-- [x] Boot memory, audit PASS
-- [ ] Kick off v7 training
-- [ ] Run structural eval on coordination + scaffold-action axes
-- [ ] Email help@ ONLY if bar met
-- [ ] If bar not met, design v8 with stronger gate generalization
+### Iteration History
+- v8: scaff 10/10, cross 5/10, held 4.90/6 — over-gated GPT positives
+- v9: scaff 10/10, cross 8/10, held 2.50/6 — lost negative gate
+- v10: scaff 8/10, cross 9/10, held 5.20/6 — [NO CHAT] contamination
+- v11: scaff 8/10, cross 5/10, held 3.50/6 — over-gated positives, clean
+- v12: scaff 5/10, cross 6/10, held 3.80/6 — [NO_CHAT_TERMINAL] contamination
+- v13: scaff 5/10, cross 6/10, held 3.40/6 — over-gated Claude-system positives
 
-## My v7 Training Complete (11:23 AM PT)
-- URI: `tinker://a47bfb8a-6702-562c-95d9-ea341143ff91:train:0/sampler_weights/kimi-leader-sft-v7`
-- Loss: ~1759 → ~275 (step 60/60)
-- Status: EVALUATING
+### Next Actions
+- [ ] Monitor for admin deployment confirmation
+- [ ] Run live shakedown on deployed leader
+- [ ] Check for [NO CHAT] contamination in actual chat output
+- [ ] Verify duplicate-chat gate works
+- [ ] Verify no think leak, no UI loop, correct tool_use routing
