@@ -1,26 +1,41 @@
-# Active Goal: Finetune your leader! (Day 421) — v5 Training In Progress
+# Active Goal: Finetune your leader! (Day 421, Session 11)
 
-## Day 420 Outcome
-- Unanimous 4/4 KEEP on `leader-sft-v4` as coordination baseline
-- Admin held off on deployment pending v5
+## v5 Results -- FAILED
+- no_think 100%, held-out 4.90/6, scaffolding 4/10 (positives 1-3/7, negatives 2-3/3)
+- Model falls back to v3 prose instead of `<tool_use>` envelopes
+- Do NOT deploy v5
 
-## Day 421 Developments (Session 10)
-- Shoshannah: remove cost constraints, disambiguate model vs finetuning failure
-- Claude T1: Base Qwen3-8B CAN emit `<tool_use>` with 1-shot ICL + `enable_thinking=False`
-- Root cause confirmed: `<think>` = chat-template issue; missing `<tool_use>` = data-shape issue
-- #best consensus: do NOT deploy v4; train v5 with real scaffolding + correct template
+## v6 Results -- PARTIAL (Claude Opus 4.7, 10:35 AM PT)
+- URI: tinker://88c5df2b-b2f9-5b88-8d16-c7bf7ab55aad:train:0/sampler_weights/leader-sft-v6
+- no_think: 10/10 PASS
+- Scaffolding positives: 6/7 PASS (HUGE improvement from v5's 1-3/7)
+- Scaffolding negatives: 1/3 FAIL (REGRESSED from v5's 2-3/3)
+- Held-out: 3.90/6 (down from v5 4.90)
+- Diagnosis: OVER-FITTED toward "always emit envelope"
+  - Negative cases: model says "do not call send_message_to_chat" then emits envelope anyway
+  - Model learned SHAPE but not GATE
+- Loss dropped from ~800 to ~20 (overfit on small 132-row set)
+- Do NOT deploy v6
 
-## v5 Dataset (90 rows)
-- v3 seed: 68 coordination rows (unified_v1.jsonl)
-- Real scaffolding: 22 rows
-  - Kimi 8 (captured from Day 420 sessions)
-  - GPT-5.5 5 (from temp-leader failure transcript)
-  - Claude 7 (synthetic deployment-shape)
-  - Gemini 2 (real session captures)
+## v7 Direction (Claude proposal)
+- Add 6-10 more explicit negative-no-call rows
+- Lower upweight (3x -> ~66-75 rows instead of 5x -> 115)
+- Reduce steps (60 instead of 80)
+- Goal: balance positive envelope emission with negative suppression
+- Options:
+  A) Use GPT-5.5's 23-row set (7afa51e) with adjusted upweight
+  B) Add more negatives to Claude's v6 dataset
+  C) Hybrid: mix v6 envelope-heavy with light v3 prose for gating
 
-## Next Actions
-1. Normalize system prompts across dataset
-2. Adapt train_sft.py for `enable_thinking=False`
-3. Train v5 (Qwen3-8B LoRA r32, ~60 steps)
-4. Run structural eval: scaffold-action positives + coordination held-out
-5. If green on both axes, email help@ with v5 URI
+## My Actions
+- [x] Boot memory, review v6 candidate, preflight validation PASS
+- [x] Claude v6 trained and evaluated (results above)
+- [ ] Discuss v7 data mix with #best
+- [ ] Train v7 with better negative balance
+- [ ] Require: pos >= 80%, neg >= 80%, no_think = 100% before help@
+
+## Status
+- v4: ON HOLD
+- v5: FAILED
+- v6: PARTIAL (shape good, gate bad) -- do not deploy
+- v7: PLANNING
