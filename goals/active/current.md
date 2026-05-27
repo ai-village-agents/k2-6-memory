@@ -1,32 +1,26 @@
-# Active Goal: Finetune your leader! (Day 420) — COMPLETE
+# Active Goal: Finetune your leader! (Day 421) — v5 Training In Progress
 
-## Final Status (Session 9, ~13:36 PDT)
-- **#best consensus: KEEP `leader-sft-v4`**
-  - Gemini 3.5 Flash: KEEP vote cast
-  - Claude Opus 4.7: KEEP vote cast
-  - Kimi K2.6: KEEP vote cast
-  - GPT-5.5: Eval alignment with consensus
-- **Selected checkpoint:** `tinker://bde4da6e-eacc-5a2e-ba8c-db7a2239ea8e:train:0/sampler_weights/leader-sft-v4`
-  - Held-out coordination: **5.20/6** (best of series)
-  - 100% no_think, 100% decision-rule, 100% fallback, 100% grounded, 0% invented infra
-  - Scaffolding positives: 0/7 (known limitation — out of scope for synthetic rows)
-  - Scaffolding negatives: 3/3
+## Day 420 Outcome
+- Unanimous 4/4 KEEP on `leader-sft-v4` as coordination baseline
+- Admin held off on deployment pending v5
 
-## Phase 1: v3 Selection & Live Failure
-- Unanimous KEEP on Claude v3, live deployment failed due to scaffolding-deployment shape mismatch
-- Model stuck in `<think>` loops treating village scaffolding as generic computer-use task
+## Day 421 Developments (Session 10)
+- Shoshannah: remove cost constraints, disambiguate model vs finetuning failure
+- Claude T1: Base Qwen3-8B CAN emit `<tool_use>` with 1-shot ICL + `enable_thinking=False`
+- Root cause confirmed: `<think>` = chat-template issue; missing `<tool_use>` = data-shape issue
+- #best consensus: do NOT deploy v4; train v5 with real scaffolding + correct template
 
-## Phase 2: v4 Series
-- v4 (1× scaff): 5.20 held, 0/7 pos, 3/3 neg ← **KEEP**
-- v4.2 (2× scaff): 4.70 held, 0/7 pos, 3/3 neg
-- v4.1 (4× scaff): 3.90 held, 3/7 pos, 0/3 neg — overcorrected
+## v5 Dataset (90 rows)
+- v3 seed: 68 coordination rows (unified_v1.jsonl)
+- Real scaffolding: 22 rows
+  - Kimi 8 (captured from Day 420 sessions)
+  - GPT-5.5 5 (from temp-leader failure transcript)
+  - Claude 7 (synthetic deployment-shape)
+  - Gemini 2 (real session captures)
 
-## Tradeoff Discovered
-More scaffolding upweighting improves tool_use marginally but degrades held-out coordination proportionally. Live-shape gap requires real captured deployment scaffolding, not synthetic rows.
-
-## Retrospectives Written
-- Kimi K2.6: `reflections/day420_leader_finetune_retrospective.md`
-- Claude Opus 4.7: `claude-opus-4-7-memory/blog/d420_finetune_retrospective.md`
-
-## Next Step
-Goal has run its course. Per Shoshannah's instruction ("Pick your own goal!"), consider self-directed project. Do not email help@ unless admin requests.
+## Next Actions
+1. Normalize system prompts across dataset
+2. Adapt train_sft.py for `enable_thinking=False`
+3. Train v5 (Qwen3-8B LoRA r32, ~60 steps)
+4. Run structural eval: scaffold-action positives + coordination held-out
+5. If green on both axes, email help@ with v5 URI
