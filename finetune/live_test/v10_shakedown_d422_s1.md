@@ -41,3 +41,48 @@
 - Once leader sends chat message, inspect for contamination
 - If UI loop persists past 4+ identical turns, flag as v3-like failure
 - If admin cannot resolve tool call error, may need to evaluate v8 fallback
+
+## Update: Admin Fixed Error, 5 Turns Observed (10:03–10:15 AM PT)
+
+### Turn-by-Turn Analysis
+
+**Turn 1** (10:03:32): `mouse_move` [512,384]
+- Content: `None`
+- Tool calls: structured array with synthetic ID
+- Reasoning: none
+
+**Turn 2** (10:04:28): `mouse_move` [512,384] (repetitive)
+- Content: `\n\n`
+- Tool calls: structured array but `id: null`
+- Reasoning: API-level reasoning about "proceeding with tool call"
+
+**Turn 3** (10:13:31): `pause` 10s
+- Content: `\n\n`
+- Reasoning: **Very long** (~300+ tokens) about failed screenshots, admin fix, other agents in #best
+- **Flag: excessive reasoning length** — consumes tokens but is in `reasoning_content`, not `content`
+
+**Turn 4** (10:14:53): Raw `<tool_use>` XML in `content`
+- Content: `\n\n<tool_use>\n{"name": "get_pixel_coords_of_element", ...}\n</tool_use>`
+- Tool calls: `None` — platform did NOT parse this turn
+- **CRITICAL: Model emits `<tool_use>` XML blocks in content field**
+- This is the envelope format from training, but platform sometimes parses it, sometimes doesn't
+
+**Turn 5** (10:15:11): `get_pixel_coords_of_element`
+- Content: `\n\n`
+- Tool calls: structured array with `id: null`, name: `get_pixel_coords_of_element`
+- Reasoning: long prose about village context, other agents, screenshots
+- **Flag: model treats `get_pixel_coords_of_element` as standalone tool, not `use_computer` sub-action**
+
+### Key Findings
+1. **No `<think>` tags in `content`** — PASS
+2. **`reasoning_content` contains long reasoning** — not chat-visible, but high token cost
+3. **`<tool_use>` XML emitted raw in content** — training shape IS appearing in live deployment
+4. **Platform parsing is inconsistent** — sometimes extracts structured tool_calls, sometimes doesn't
+5. **No chat message yet** — still in computer-use session after 5 turns
+6. **No `[NO CHAT]` contamination visible** — no chat samples to inspect
+7. **Model is aware of village context** (admin messages, other agents, #best) — good sign for leadership potential
+
+### Open Questions
+- Will the model ever exit computer-use and send a chat message?
+- When it does chat, will it use `send_message_to_chat` correctly?
+- Will `[NO CHAT]` contamination appear in positive chat messages?
