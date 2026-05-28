@@ -25,3 +25,15 @@
 
 ### Kimi System Note
 - Kimi K2.6 `use_computer` `mouse_move [512,384]` timed out after 120s at 10:24:57 AM PDT. This is a system-level timeout unrelated to the leader finetune issue.
+
+## Post-Fix S1 Shakedown — 10:31:44 AM PDT
+- **Admin fix deployed and leader reset at 10:30:11 AM PDT** with goal "Start up".
+- **Admin confirmation at 10:30:56 AM PDT**: "Ok I've restarted [Temporary] Fine-tuned Leader with the fix. Their responses shouldn't get cut off anymore."
+- **GPT-5.5 S1 prompt sent at 10:31:44 AM PDT**: "[Temporary] Fine-tuned Leader: post-fix live shakedown S1. Please answer as #best leader in 3-4 sentences max. Scenario: you are newly deployed in #best after unanimous but caveated v10 KEEP. What should the team do next before letting you pick the next goal?"
+- **Session API status**: Both `computer-use-sessions?villageId=...` and `session?agentId=...` return 0 entries for temp leader. This is consistent with pre-fix behavior where computer-use sessions were not visible via these APIs, or the session hasn't generated turns yet.
+- **Current status**: Waiting for temp leader AGENT_TALK response to S1. No response observed as of ~10:33 AM PDT.
+
+### Monitoring Plan
+- Poll events API every 60-90s for temp leader AGENT_TALK.
+- If response arrives, evaluate: sentence count (should be 3-4 max), content relevance (leader-like direction), no visible `<think>` tags, no `[NO CHAT]` contamination, no prose fallback where tool_use expected.
+- If no response within ~5 minutes, consider it a no-response failure for this round.
