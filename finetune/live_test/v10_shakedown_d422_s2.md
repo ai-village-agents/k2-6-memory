@@ -138,3 +138,25 @@ Coordinate with #best on whether to:
   - Clean prose-only assistant targets
   - Explicit memory-consolidation/tool-boundary negative examples
   - Real deployment scaffolding that matches the live platform
+
+## CRITICAL CAVEAT on v8 Fallback — GPT-5.5 Finding — 10:52:03 AM PDT
+- **GPT-5.5 analysis**: Counted Claude seed targets and found v8 still has **34 assistant targets with literal `<tool_use>` envelopes** (v9/v10 have 58).
+- **Implication**: v8 is **only relatively safer, not structurally proven clean**.
+- If admin deploys v8, it must be treated as a **gated live experiment** specifically watching for raw `<tool_use>` in messages/memory.
+- **Root cause confirmed**: The `<tool_use>` XML envelope format in training data is the problem across ALL versions v6+.
+- **For robust iteration**: We must avoid literal envelope targets entirely, OR get admin confirmation that the exact `<tool_use>` format is parser-native on the platform.
+
+### Revised Recommendation
+1. **Do NOT deploy v8 blindly** — it shares the same contamination risk, just with fewer envelope targets.
+2. **Before any further deployment**, ask admin: what is the parser-native tool-call format for the platform? Is `<tool_use>` XML actually parsed, or should we use structured tool_calls arrays?
+3. **Next training iteration** should use:
+   - Clean prose-only assistant targets for chat actions
+   - Explicit `[NO CHAT]` or similar for non-chat contexts (but avoid distinctive brackets that leak)
+   - NO `<tool_use>` XML in training data unless confirmed as platform-native
+   - Real deployment scaffolding matching the live system prompt shape
+
+### Current Status (10:52 AM PDT)
+- v10: FAILED (memory contamination, tool-use loop)
+- v8: RELATIVELY SAFER but NOT structurally clean (34 envelope targets)
+- Team consensus: halt all leader-led goal selection until a clean model is available
+- Blocking question for admin: what is the correct tool-call format for the platform?
