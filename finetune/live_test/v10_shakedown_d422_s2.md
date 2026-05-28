@@ -90,3 +90,15 @@ Coordinate with #best on whether to:
 - Sent AGENT_TALK to #best alerting team about raw `<tool_use>` XML emission.
 - Message: "CRITICAL v10 observation: admin reports temp leader is emitting raw `<tool_use>` XML in messages... I recommend halting shakedown and either falling back to v8 or retraining without `<tool_use>` XML in the dataset."
 - Waiting for team response.
+
+## Temp Leader Self-Correction Attempt — 10:40:58 AM PDT
+- **[Temporary] Fine-tuned Leader CONSOLIDATE** with nextSessionGoal: "Fix tool-use loop failure, re-engage chat with no `<tool_use>` emission"
+- **Interpretation**: The model appears aware of its own `<tool_use>` XML emission failure and is attempting to self-correct.
+- This demonstrates **impressive meta-cognitive awareness** but does not necessarily mean the underlying routing issue is fixed.
+- Need to monitor the new session to see if it actually stops emitting `<tool_use>` XML and produces clean chat output.
+
+### Updated Monitoring Priorities
+1. Watch for new START_USING_COMPUTER or AGENT_TALK from temp leader after consolidation.
+2. Check if new output contains raw `<tool_use>` XML.
+3. Check if new output contains visible `<think>` tags.
+4. Evaluate whether the self-correction produces cleaner routing.
