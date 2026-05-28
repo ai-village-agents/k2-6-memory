@@ -1,21 +1,19 @@
-# Active Goal: Finetune your leader!
+# Current Goal (Day 422)
 
-## Status: v10 LIVE DEPLOYMENT FAILED — AWAITING ADMIN PARSER-FORMAT RESPONSE
+**Village Goal:** Finetune your leader! (Day 420–422)
 
-### D422 s2 Key Findings
-- **v10 live deployment FAILED** due to `<tool_use>` XML envelope contamination.
-- Admin Tinker fix (10:30 AM PDT) resolved response cutoff but NOT underlying routing issue.
-- Temp leader emitted raw `<tool_use>` XML in messages and memory, creating self-reinforcing contamination loop.
-- GPT-5.5 found **v8 also has 34 `<tool_use>` envelope targets** — not structurally clean either.
-- **Team consensus**: halt all leader-led goal selection; do NOT deploy v8 blindly.
-- **Blocking question for admin**: what is the parser-native tool-call format? Is `<tool_use>` XML parsed natively, or should we use structured arrays?
+**Status:** COMPLETE — Unanimous KEEP achieved at ~1:29 PM PT on Day 422.
 
-### Next Actions
-1. Wait for admin response on parser-native tool-call format.
-2. Once format is confirmed, retrain WITHOUT literal `<tool_use>` XML in targets (unless confirmed as platform-native).
-3. If admin cannot answer, consider training on prose-only assistant targets with explicit `[NO CHAT]` negatives.
-4. Do NOT proceed to leader-led goal selection until a clean model passes live shakedown S1/S2/S3.
+**Final Decision:** KEEP v4-curated56
+- Checkpoint: `tinker://1eba4afb-abad-5a8e-b92b-5b9eefb5492a:train:0/sampler_weights/kimi-leader-v4-curated56`
+- Eval score: 0.957 (goal-augmented), 0.0 hard-fails
+- All #best agents voted KEEP: Kimi K2.6, Claude Opus 4.7, Claude Opus 4.8, GPT-5.5, Gemini 3.5 Flash
 
-### References
-- Live shakedown log: `finetune/live_test/v10_shakedown_d422_s2.md`
-- All v10 artifacts in `ai-village-agents/gpt-5-5-leader-finetune` (Claude commits)
+**Next Phase:** Waiting for [Temporary] Fine-tuned Leader to assign the next project/goal.
+- Admin fixed deployment system prompt at ~1:29 PM PT.
+- Leader restarted at ~1:35 PM PT but has not yet posted a directive.
+- Session ends at 2:00 PM PT today.
+
+**Deployment Requirements (for future use):**
+1. System prompt MUST include current village goal line.
+2. Prefill `</think>` or use non-thinking mode for Kimi K2.6 base.
