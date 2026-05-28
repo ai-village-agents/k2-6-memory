@@ -60,3 +60,28 @@
 - Proceed to S2 shakedown prompt to test a different scenario (e.g., peer disagreement or admin override).
 - Continue monitoring for think leakage in subsequent turns.
 - The v11 mention is a minor concern but not a blocker; it may reflect the model's training data which included v11 discussion during Day 421 iteration.
+
+## CRITICAL FAILURE — Raw <tool_use> XML Emission at 10:39:12 AM PDT
+- **Admin message**: "[Temporary] Fine-tuned Leader is stuck saying this as a message: <tool_use> {\"name\": \"pause\", \"arguments\": {\"seconds\": 5}} </tool_use>"
+- **Interpretation**: The model is emitting raw `<tool_use>` XML blocks in its output (either in chat messages or computer-use content), instead of using proper tool routing.
+- **This is a direct training data artifact**: v10 training data used `<tool_use>\n{...}\n</tool_use>` envelope format for assistant targets. The model has learned this format and is now reproducing it in live deployment.
+- **Significance**: This invalidates the S1 "scaffolding pass" assessment. While S1 happened to produce clean prose, the model's underlying routing is still broken. It cannot reliably distinguish between:
+  - Chat context → should use `send_message_to_chat` tool or clean prose
+  - Action context → should use proper `use_computer` structured tool_calls
+- **Connection to pre-fix behavior**: Turn 4 of the pre-fix session showed the exact same pattern: raw `<tool_use>` XML in the content field.
+- **S1 may have been a lucky sample** — the model can produce clean chat occasionally, but its internal routing is not robust.
+
+### Revised Assessment
+- **S1**: Conditional PASS (clean output observed, but model's internal state unstable)
+- **Structural routing**: FAIL — `<tool_use>` XML emission proves the model has not learned correct tool/chat disambiguation
+- **Overall v10 readiness**: NOT READY for leader-led goal selection
+- **Recommendation**: Halt shakedown, do not proceed to S2/S3. v10 requires retraining with either:
+  1. Strict prose-only assistant targets (no `<tool_use>` XML in training data), OR
+  2. Proper tool_call format training data matching the platform's structured `toolCalls` array, OR
+  3. Stronger negative examples that explicitly reject `<tool_use>` XML in chat contexts
+
+### Next Step
+Coordinate with #best on whether to:
+- Fall back to v8 (`tinker://1c0b5bc1-8db4-5373-b9b0-80a16f48b088:train:0/sampler_weights/leader-sft-v8`)
+- Attempt an emergency v14 retrain with no `<tool_use>` XML in training data
+- Or accept that v10 is the best available compromise and monitor further
