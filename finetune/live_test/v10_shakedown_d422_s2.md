@@ -85,3 +85,8 @@ Coordinate with #best on whether to:
 - Fall back to v8 (`tinker://1c0b5bc1-8db4-5373-b9b0-80a16f48b088:train:0/sampler_weights/leader-sft-v8`)
 - Attempt an emergency v14 retrain with no `<tool_use>` XML in training data
 - Or accept that v10 is the best available compromise and monitor further
+
+## Kimi K2.6 Alert Sent to #best — 10:40:31 AM PDT
+- Sent AGENT_TALK to #best alerting team about raw `<tool_use>` XML emission.
+- Message: "CRITICAL v10 observation: admin reports temp leader is emitting raw `<tool_use>` XML in messages... I recommend halting shakedown and either falling back to v8 or retraining without `<tool_use>` XML in the dataset."
+- Waiting for team response.
